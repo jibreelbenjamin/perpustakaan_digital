@@ -14,7 +14,6 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->enum('role', ['admin', 'moderator', 'staff'])->default('staff');
-            $table->string('avatar')->nullable();
             $table->string('phone')->nullable();
             $table->rememberToken();
             $table->timestamps();
