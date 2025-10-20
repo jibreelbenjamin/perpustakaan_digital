@@ -42,8 +42,13 @@ class User extends Authenticatable
         return $this->role === 'staff';
     }
 
-    public function pinjaman()
+    public function borrowings()
     {
-        return $this->hasMany(Pinjaman::class, 'id_user', 'id_user');
+        return $this->hasMany(Borrowing::class, 'id_user', 'id_user');
+    }
+
+    public function activityLogs()
+    {
+        return $this->hasMany(ActivityLog::class, 'user_id', 'id_user');
     }
 }
