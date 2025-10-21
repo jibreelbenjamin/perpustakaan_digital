@@ -40,12 +40,17 @@ class BorrowingController
     public function store(Request $request){
         try {
             $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'contact' => 'required|string|max:255',
                 'petugas' => 'required|exists:users,id_user',
                 'id_book' => 'required|exists:books,id_book',
                 'borrow_date' => 'required|date',
                 'return_date' => 'nullable|date|after_or_equal:borrow_date',
                 'status' => 'required|in:dipinjam,dikembalikan,terlambat,hilang',
             ], [
+                'name.required' => 'Nama wajib diisi',
+                'contact.required' => 'Nama wajib diisi',
+
                 'petugas.required' => 'Petugas wajib diisi',
                 'petugas.exists' => 'Petugas tidak dikenal',
 
@@ -118,12 +123,17 @@ class BorrowingController
             $data = Borrowing::where('id_borrowing', $id)->firstOrFail();
 
             $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'contact' => 'required|string|max:255',
                 'petugas' => 'required|exists:users,id_user',
                 'id_book' => 'required|exists:books,id_book',
                 'borrow_date' => 'required|date',
                 'return_date' => 'nullable|date|after_or_equal:borrow_date',
                 'status' => 'required|in:dipinjam,dikembalikan,terlambat,hilang',
             ], [
+                'name.required' => 'Nama wajib diisi',
+                'contact.required' => 'Nama wajib diisi',
+
                 'petugas.required' => 'Petugas wajib diisi',
                 'petugas.exists' => 'Petugas tidak dikenal',
 

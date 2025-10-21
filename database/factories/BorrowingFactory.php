@@ -14,6 +14,8 @@ class BorrowingFactory extends Factory
         $returnDate = $this->faker->optional()->dateTimeBetween($borrowDate, '+1 month');
 
         return [
+            'name' => $this->faker->name(),
+            'contact' => $this->faker->numerify('08##-####-#####'),
             'petugas' => User::inRandomOrder()->value('id_user'),
             'id_book' => Book::inRandomOrder()->value('id_book'),
             'borrow_date' => $borrowDate->format('Y-m-d'),

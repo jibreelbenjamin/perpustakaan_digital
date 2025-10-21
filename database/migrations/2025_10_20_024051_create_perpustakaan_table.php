@@ -26,6 +26,8 @@ return new class extends Migration
         });
         Schema::create('borrowings', function (Blueprint $table) {
             $table->id('id_borrowing');
+            $table->string('name');
+            $table->string('contact');
             $table->foreignId('petugas')->constrained('users', 'id_user')->onDelete('cascade');
             $table->foreignId('id_book')->constrained('books', 'id_book')->onDelete('cascade');
             $table->date('borrow_date');
