@@ -11,28 +11,29 @@ use Exception;
 
 class UserController 
 {
+    protected $data_title = 'user' ;
     public function index(){
         try {
-            $users = User::all();
+            $data = User::all();
 
-            if ($users->isEmpty()) {
+            if ($data->isEmpty()) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Belum ada user terdaftar.',
+                    'message' => 'Data '.$this->data_title.' tidak tersedia',
                     'data' => [],
                 ], 404);
             }
 
             return response()->json([
                 'status' => true,
-                'message' => 'Daftar user berhasil diambil.',
-                'data' => $users,
+                'message' => 'Data '.$this->data_title.' ditemukan',
+                'data' => $data,
             ], 200);
 
         } catch (Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Terjadi kesalahan.',
+                'message' => 'Terjadi kesalahan',
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -47,17 +48,17 @@ class UserController
                 'role' => 'nullable|in:admin,moderator,staff',
                 'phone' => 'nullable|regex:/^[0-9]+$/|digits_between:12,15',
             ], [
-                'name.required' => 'Nama wajib diisi.',
-                'username.required' => 'Username wajib diisi.',
-                'username.unique' => 'Username sudah digunakan.',
-                'password.required' => 'Password wajib diisi.',
-                'password.min' => 'Password minimal 6 karakter.',
-                'role.in' => 'Role tidak valid.',
+                'name.required' => 'Nama wajib diisi',
+                'username.required' => 'Username wajib diisi',
+                'username.unique' => 'Username sudah digunakan',
+                'password.required' => 'Password wajib diisi',
+                'password.min' => 'Password minimal 6 karakter',
+                'role.in' => 'Role tidak valid',
                 'phone.regex' => 'No Telp tidak valid',
                 'phone.digits_between' => 'No Telp tidak valid',
             ]);
 
-            $user = User::create([
+            $data = User::create([
                 'name' => $validated['name'],
                 'username' => $validated['username'],
                 'password' => Hash::make($validated['password']),
@@ -65,26 +66,26 @@ class UserController
                 'phone' => $validated['phone'] ?? null,
             ]);
 
-            if (!$user) {
+            if (!$data) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Gagal membuat user, silakan coba lagi.'
+                    'message' => 'Data '.$this->data_title.' gagal dibuat'
                 ], 500);
             }
 
             return response()->json([
                 'status' => true,
-                'message' => 'User berhasil didaftarkan.',
-                'user' => $user
+                'message' => 'Data '.$this->data_title.' berhasil dibuat',
+                'data' => $data
             ], 201);
 
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Validasi gagal.',
+                'message' => 'Validasi '.$this->data_title.' gagal',
                 'errors' => $e->errors()
             ], 422);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
@@ -92,71 +93,71 @@ class UserController
         }
     }
 
-    public function search($id){
+    public function show($id){
         $data = User::find($id);
         if($data){
             return response()->json([
                 'status' => true,
-                'message' => 'Data ditemukan',
+                'message' => 'Data '.$this->data_title.' ditemukan',
                 'data' => $data
             ]);
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'Data tidak tersedia'
+                'message' => 'Data '.$this->data_title.' tidak tersedia'
             ]);
         }
     }
 
     public function update(Request $request, $id){
         try {
-            $user = User::where('id_user', $id)->firstOrFail();
+            $data = User::where('id_user', $id)->firstOrFail();
 
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
-                'username' => 'required|string|max:255|unique:users,username,' . $user->id_user . ',id_user',
+                'username' => 'required|string|max:255|unique:users,username,' . $data->id_user . ',id_user',
                 'phone' => 'nullable|regex:/^[0-9]+$/|digits_between:12,15',
                 'password_auth' => 'required|string',
             ], [
-                'name.required' => 'Nama wajib diisi.',
-                'username.required' => 'Username wajib diisi.',
-                'username.unique' => 'Username sudah digunakan.',
+                'name.required' => 'Nama wajib diisi',
+                'username.required' => 'Username wajib diisi',
+                'username.unique' => 'Username sudah digunakan',
                 'phone.regex' => 'No Telp tidak valid',
                 'phone.digits_between' => 'No Telp tidak valid',
                 'password_auth.required' => 'Password akun harus diisi'
             ]);
 
-            if (!Hash::check($validated['password_auth'], $user->password)) {
+            if (!Hash::check($validated['password_auth'], $data->password)) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Password akun salah.'
+                    'message' => 'Password akun salah'
                 ], 400);
             }
 
-            $user->update([
+            $data->update([
                 'name' => $validated['name'],
                 'username' => $validated['username'],
-                'phone' => $validated['phone'],
+                'phone' => $validated['phone'] ?? '',
             ]);
 
             return response()->json([
                 'status' => true,
-                'message' => 'User berhasil diupdate.',
-                'user' => $user
+                'message' => 'Data '.$this->data_title.' berhasil diupdate',
+                'data' => $data
             ], 200);
 
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'User tidak ditemukan.'
+                'message' => 'Data '.$this->data_title.' tidak ditemukan'
             ], 404);
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Validasi gagal.',
+                'message' => 'Validasi '.$this->data_title.' gagal',
                 'errors' => $e->errors()
             ], 422);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
@@ -166,37 +167,37 @@ class UserController
 
     public function updateRole(Request $request, $id){
         try {
-            $user = User::where('id_user', $id)->firstOrFail();
+            $data = User::where('id_user', $id)->firstOrFail();
 
             $validated = $request->validate([
                 'role' => 'required|in:admin,moderator,staff',
             ], [
-                'role.required' => 'Role wajib diisi.',
-                'role.in' => 'Role tidak valid.',
+                'role.required' => 'Role wajib diisi',
+                'role.in' => 'Role tidak valid',
             ]);
 
-            $user->update([
+            $data->update([
                 'role' => $validated['role'],
             ]);
 
             return response()->json([
                 'status' => true,
-                'message' => 'Role user berhasil diupdate.',
-                'user' => $user
+                'message' => 'Data '.$this->data_title.' berhasil diupdate',
+                'data' => $data
             ], 200);
 
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'User tidak ditemukan.'
+                'message' => 'Data '.$this->data_title.' tidak ditemukan'
             ], 404);
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Validasi gagal.',
+                'message' => 'Validasi '.$this->data_title.' gagal',
                 'errors' => $e->errors()
             ], 422);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
@@ -206,46 +207,46 @@ class UserController
 
     public function updatePassword(Request $request, $id){
         try {
-            $user = User::where('id_user', $id)->firstOrFail();
+            $data = User::where('id_user', $id)->firstOrFail();
 
             $validated = $request->validate([
                 'current_password' => 'required|string',
                 'new_password' => 'required|string|min:6|confirmed',
             ], [
-                'current_password.required' => 'Password lama wajib diisi.',
-                'new_password.required' => 'Password baru wajib diisi.',
-                'new_password.min' => 'Password baru minimal 6 karakter.',
-                'new_password.confirmed' => 'Konfirmasi password tidak cocok.',
+                'current_password.required' => 'Password lama wajib diisi',
+                'new_password.required' => 'Password baru wajib diisi',
+                'new_password.min' => 'Password baru minimal 6 karakter',
+                'new_password.confirmed' => 'Konfirmasi password tidak cocok',
             ]);
 
-            if (!Hash::check($validated['current_password'], $user->password)) {
+            if (!Hash::check($validated['current_password'], $data->password)) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Password lama salah.'
+                    'message' => 'Password lama salah'
                 ], 400);
             }
 
-            $user->update([
+            $data->update([
                 'password' => Hash::make($validated['new_password']),
             ]);
 
             return response()->json([
                 'status' => true,
-                'message' => 'Password berhasil diubah.'
+                'message' => 'Data '.$this->data_title.' berhasil diupdate'
             ], 200);
 
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'User tidak ditemukan.'
+                'message' => 'Data '.$this->data_title.' tidak ditemukan'
             ], 404);
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Validasi gagal.',
+                'message' => 'Validasi '.$this->data_title.' gagal',
                 'errors' => $e->errors()
             ], 422);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
@@ -258,7 +259,7 @@ class UserController
         if(empty($data)){
             return response()->json([
                 'status' => false,
-                'message' => 'Data tidak tersedia'
+                'message' => 'Data '.$this->data_title.' tidak tersedia'
             ]);
         }
         
@@ -266,9 +267,9 @@ class UserController
             $post = $data->delete();
             return response()->json([
                 'status' => true,
-                'message' => 'Berhasil hapus data',
+                'message' => 'Berhasil '.$this->data_title.' hapus data',
             ], 200);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => 'Terjadi kesalahan',

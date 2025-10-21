@@ -11,7 +11,7 @@ class Borrowing extends Model
 
     protected $primaryKey = 'id_borrowing';
     protected $fillable = [
-        'id_user',
+        'petugas',
         'id_book',
         'borrow_date',
         'return_date',
