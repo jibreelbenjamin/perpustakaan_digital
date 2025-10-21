@@ -115,6 +115,24 @@ class BookController
         }
     }
 
+    public function search($query){
+        $data = Book::where('title', 'like', '%' . $query . '%')->get();
+
+        if ($data->isNotEmpty()) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Hasil pencarian buku ditemukan',
+                'total' => count($data) . ' Buku',
+                'data' => $data
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Tidak ada buku yang cocok dengan kata kunci "' . $query . '"'
+            ]);
+        }
+    }
+
     public function update(Request $request, $id){
         try {
             $data = Book::where('id_category', $id)->firstOrFail();
