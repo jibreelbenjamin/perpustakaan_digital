@@ -13,7 +13,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::middleware('role:admin')->group(function () {
-        Route::get('/users', [UserController::class, 'index']);
         Route::post('/users', [UserController::class, 'store']);
         Route::get('/users/{id}', [UserController::class, 'show']);
         Route::put('/users/{id}/role', [UserController::class, 'updateRole']);
@@ -24,16 +23,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/book', [BookController::class, 'store']);
         Route::put('/book/{id}', [BookController::class, 'update']);
         Route::delete('/book/{id}', [BookController::class, 'destroy']);
-
+        
         Route::post('/category', [CategoryController::class, 'store']);
         Route::put('/category/{id}', [CategoryController::class, 'update']);
         Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
     });
+    Route::get('/users', [UserController::class, 'index']);
     
     Route::get('/book', [BookController::class, 'index']);
     Route::get('/book/{id}', [BookController::class, 'show']);
     Route::get('/book/search/{query}', [BookController::class, 'search']);
-
     
     Route::get('/category', [CategoryController::class, 'index']);
     Route::get('/category/{id}', [CategoryController::class, 'show']);

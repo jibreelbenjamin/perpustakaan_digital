@@ -27,6 +27,9 @@ class AuthController
             'message' => 'Login berhasil',
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'id_user' => $user->id_user,
+            'name' => $user->name,
+            'username' => $user->username,
             'role' => $user->role,
         ]);
     }

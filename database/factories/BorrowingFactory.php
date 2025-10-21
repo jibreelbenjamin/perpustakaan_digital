@@ -20,7 +20,7 @@ class BorrowingFactory extends Factory
             'id_book' => Book::inRandomOrder()->value('id_book'),
             'borrow_date' => $borrowDate->format('Y-m-d'),
             'return_date' => $returnDate ? $returnDate->format('Y-m-d') : null,
-            'status' => $this->faker->randomElement(['dipinjam', 'dikembalikan', 'terlambat', 'hilang']),
+            'status' => $this->faker->randomElement(['dipinjam', 'dikembalikan', 'hilang']),
         ];
     }
 }

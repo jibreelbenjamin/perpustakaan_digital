@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignId('id_book')->constrained('books', 'id_book')->onDelete('cascade');
             $table->date('borrow_date');
             $table->date('return_date')->nullable();
-            $table->enum('status', ['dipinjam', 'dikembalikan', 'terlambat', 'hilang'])->default('dipinjam');
+            $table->enum('status', ['dipinjam', 'dikembalikan', 'hilang'])->default('dipinjam');
             $table->timestamps();
         });
         Schema::create('activity_logs', function (Blueprint $table) {

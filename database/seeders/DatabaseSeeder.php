@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123'),
             'role' => 'admin'
         ]);
-        User::factory(10)->create();
-        Category::factory(30)->create();
-        Book::factory(100)->create();
-        Borrowing::factory(350)->create();
+        User::factory(43)->create();
+        Category::factory(89)->create();
+        Book::factory(7320)->create();
+        Borrowing::factory(21705)->create();
     }
 }

@@ -46,7 +46,7 @@ class BorrowingController
                 'id_book' => 'required|exists:books,id_book',
                 'borrow_date' => 'required|date',
                 'return_date' => 'nullable|date|after_or_equal:borrow_date',
-                'status' => 'required|in:dipinjam,dikembalikan,terlambat,hilang',
+                'status' => 'required|in:dipinjam,dikembalikan,hilang',
             ], [
                 'name.required' => 'Nama wajib diisi',
                 'contact.required' => 'Nama wajib diisi',
@@ -129,7 +129,7 @@ class BorrowingController
                 'id_book' => 'required|exists:books,id_book',
                 'borrow_date' => 'required|date',
                 'return_date' => 'nullable|date|after_or_equal:borrow_date',
-                'status' => 'required|in:dipinjam,dikembalikan,terlambat,hilang',
+                'status' => 'required|in:dipinjam,dikembalikan,hilang',
             ], [
                 'name.required' => 'Nama wajib diisi',
                 'contact.required' => 'Nama wajib diisi',
