@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Borrowing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -49,7 +50,7 @@ class BorrowingController
                 'status' => 'required|in:dipinjam,dikembalikan,hilang',
             ], [
                 'name.required' => 'Nama wajib diisi',
-                'contact.required' => 'Nama wajib diisi',
+                'contact.required' => 'Kontak wajib diisi',
 
                 'petugas.required' => 'Petugas wajib diisi',
                 'petugas.exists' => 'Petugas tidak dikenal',
@@ -63,11 +64,13 @@ class BorrowingController
                 'return_date.date' => 'Tanggal kembali tidak valid',
                 'return_date.after_or_equal' => 'Tanggal kembali tidak boleh sebelum tanggal pinjam',
 
-                'status.required' => 'Status wajib diisi',
+                'status.required' => 'Status wajib dipilih',
                 'status.in' => 'Status tidak valid',
             ]);
 
             $data = Borrowing::create([
+                'name' => $validated['name'],
+                'contact' => $validated['contact'],
                 'petugas' => $validated['petugas'],
                 'id_book' => $validated['id_book'],
                 'borrow_date' => $validated['borrow_date'],
@@ -151,6 +154,8 @@ class BorrowingController
             ]);
 
             $data->update([
+                'name' => $validated['name'],
+                'contact' => $validated['contact'],
                 'petugas' => $validated['petugas'],
                 'id_book' => $validated['id_book'],
                 'borrow_date' => $validated['borrow_date'],
@@ -176,6 +181,52 @@ class BorrowingController
                 'errors' => $e->errors()
             ], 422);
         } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function updateStatus(Request $request, $id){
+        try {
+            $data = Borrowing::where('id_borrowing', $id)->firstOrFail();
+
+            $validated = $request->validate([
+                'status' => 'required|in:dipinjam,dikembalikan,hilang',
+            ], [
+                'status.required' => 'Status wajib diisi',
+                'status.in' => 'Status tidak valid',
+            ]);
+
+            if ($validated['status'] === 'dikembalikan') {
+                $returnDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+                $data->update([
+                    'status' => $validated['status'],
+                    'return_date' => $returnDate,
+                ]);
+            } else {
+                $data->update(['status' => $validated['status']]);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Status berhasil diperbarui',
+                'data' => $data
+            ], 200);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data peminjaman tidak ditemukan'
+            ], 404);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()

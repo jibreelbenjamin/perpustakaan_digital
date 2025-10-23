@@ -28,6 +28,15 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+input[type="date"] {
+  -moz-appearance: textfield;
+}
+
 .tIn {
     animation: inOut 2.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
     overflow: hidden;

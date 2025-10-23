@@ -32,10 +32,10 @@ function simple_format($number) {
     <!-- Button Group -->
     <div class="flex flex-wrap gap-2">
       <!-- Button -->
-      <a class="py-2 px-3 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-xl border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" href="../../pro/payment/add-money.html">
+      <button class="py-2 px-3 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-xl border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-form-input-pnjmn-modal" data-hs-overlay="#hs-form-input-pnjmn-modal">
         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus-icon lucide-circle-plus"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
         Input data pinjaman
-      </a>
+      </button>
       <!-- End Button -->
     </div>
     <!-- End Button Group -->
@@ -326,18 +326,7 @@ function simple_format($number) {
         @if (!empty($pinjaman))
           @foreach ($pinjaman->reverse()->take(10) as $item)            
           <!-- List Item -->
-          <a class="p-3 group flex gap-x-4 rounded-2xl hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" href="../../pro/payment/transactions-details.html">
-            {{-- <span class="shrink-0 relative size-11">
-              <img class="shrink-0 object-cover size-11 rounded-lg" src="https://images.unsplash.com/photo-1570654639102-bdd95efeca7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2.5&w=320&h=320&q=80" alt="Avatar">
-
-              <span class="absolute flex shrink-0 justify-center items-center size-5 overflow-hidden bottom-0 -end-1 bg-white border border-transparent text-amber-600 dark:bg-neutral-700 dark:border-neutral-900 dark:text-amber-400 rounded-full">
-                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M17 7 7 17" />
-                  <path d="M17 17H7V7" />
-                </svg>
-              </span>
-            </span> --}}
-
+          <a class="mb-2 p-3 group flex gap-x-4 rounded-2xl hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" href="/pinjaman/{{ $item['id_borrowing'] }}/detail">
             <div class="grow">
               <div class="flex justify-between items-center gap-x-3">
                 <div>
@@ -410,7 +399,7 @@ function simple_format($number) {
                 Data kosong
               </p>
               <p class="mb-5 text-sm text-gray-500 dark:text-neutral-500">
-                Tidak ada data disini. Input data untuk pertama kalinya.
+                Tidak ada data yang tercatat disistem.
               </p>
             </div>
           </div> 
@@ -425,7 +414,7 @@ function simple_format($number) {
 
   @if (!empty($pinjaman))      
     <div class="mt-4">
-      <a class="inline-flex items-center gap-x-1 font-medium text-sm text-start text-amber-600 underline underline-offset-4 hover:text-amber-700 focus:outline-hidden dark:text-amber-500 dark:hover:text-amber-600" href="../../pro/payment/transactions.html">
+      <a class="inline-flex items-center gap-x-1 font-medium text-sm text-start text-amber-600 underline underline-offset-4 hover:text-amber-700 focus:outline-hidden dark:text-amber-500 dark:hover:text-amber-600" href="/pinjaman">
         Lihat semua daftar pinjaman
         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="m9 18 6-6-6-6" />

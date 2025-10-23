@@ -115,21 +115,39 @@ class BookController
         }
     }
 
-    public function search($query){
-        $data = Book::where('title', 'like', '%' . $query . '%')->get();
+    public function search(Request $request){
+        try {
+            $query = $request->query('search');
 
-        if ($data->isNotEmpty()) {
+            $data = Book::when($query, function ($qBuilder) use ($query) {
+                $qBuilder->where('title', 'like', '%' . $query . '%');
+            })->get();
+
+            if ($data->isEmpty()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $query 
+                        ? 'Tidak ada buku yang cocok dengan kata kunci "' . $query . '".'
+                        : 'Tidak ada data buku yang tersedia.',
+                    'data' => [],
+                ], 404);
+            }
+
             return response()->json([
                 'status' => true,
-                'message' => 'Hasil pencarian buku ditemukan',
-                'total' => count($data) . ' Buku',
-                'data' => $data
-            ]);
-        } else {
+                'message' => $query
+                    ? 'Hasil pencarian buku ditemukan.'
+                    : 'Data buku ditemukan.',
+                'total' => $data->count(),
+                'data' => $data,
+            ], 200);
+
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Tidak ada buku yang cocok dengan kata kunci "' . $query . '"'
-            ]);
+                'message' => 'Terjadi kesalahan saat mengambil data buku.',
+                'error' => $e->getMessage(),
+            ], 500);
         }
     }
 
