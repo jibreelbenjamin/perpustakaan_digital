@@ -1,4 +1,7 @@
-<x-app>
+@php
+    $page = 'pinjaman';
+@endphp
+<x-app :page='$page'>
     <div class="max-w-4xl mx-auto py-5 sm:py-10 px-5 md:px-8 2xl:px-5">
       <!-- Button -->
       <div class="mb-5">

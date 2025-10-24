@@ -1,4 +1,5 @@
-<?php
+@php
+$page = 'home';
 function simple_format($number) {
     if ($number >= 1000000000) {
         return round($number / 1000000000, 1) . 'B+';
@@ -10,8 +11,8 @@ function simple_format($number) {
 
     return number_format($number);
 }
-?>
-<x-app>
+@endphp
+<x-app :page='$page'>
 <div class="max-w-4xl mx-auto py-5 sm:py-10 px-5 md:px-8 2xl:px-5">
   <!-- Header -->
   <div class="mb-5 flex flex-wrap justify-between items-center gap-3">

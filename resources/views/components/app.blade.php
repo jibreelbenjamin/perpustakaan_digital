@@ -1,3 +1,8 @@
+@php
+    $classPageActive = 'flex py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700 bg-gray-200 focus:bg-gray-300 dark:bg-neutral-700 dark:focus:bg-neutral-600';
+    $classPageIdle = 'flex py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700';
+@endphp
+@props(['page' => false])
 <x-head>
     <header class="lg:hidden flex flex-wrap md:justify-start md:flex-nowrap z-50 bg-white dark:bg-neutral-900">
         <div class="max-w-4xl mx-auto flex justify-between items-center basis-full w-full py-2.5 px-5 md:px-8 2xl:px-5">
@@ -160,7 +165,7 @@
             <ul class="p-4 space-y-1 border-y border-gray-200 dark:border-neutral-700">
                 <!-- Link -->
                 <li>
-                <a class="flex py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700 bg-gray-200 focus:bg-gray-300 dark:bg-neutral-700 dark:focus:bg-neutral-600" href="/">
+                <a class="{{ ($page == 'home') ? $classPageActive : $classPageIdle }}" href="/">
                     <span class="w-5 me-3">
                     <svg class="shrink-0 mt-0.5 size-4 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -172,49 +177,20 @@
                 </li>
                 <!-- End Link -->
 
-                <!-- Balances -->
-                <li class="hs-accordion " id="balances-accordion">
-                <button type="button" class="hs-accordion-toggle hs-accordion-active:bg-gray-200 w-full text-start flex py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:hs-accordion-active:bg-neutral-700 focus:outline-hidden focus:bg-gray-200 dark:hover:bg-neutral-600 dark:text-neutral-300 dark:focus:bg-neutral-600" aria-expanded="false" aria-controls="balances-accordion-sub">
+                <!-- Link -->
+                <li>
+                <a class="{{ ($page == 'pinjaman') ? $classPageActive : $classPageIdle }}" href="/pinjaman">
                     <span class="w-5 me-3">
                     <svg class="shrink-0 mt-0.5 size-4 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-stamp-icon lucide-stamp"><path d="M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-6 0c0 2 1 2 1 3.5V13"/><path d="M20 15.5a2.5 2.5 0 0 0-2.5-2.5h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1z"/><path d="M5 22h14"/></svg>
                     </span>
                     Pinjaman
-
-                    <svg class="hs-accordion-active:-rotate-180 shrink-0 mt-1 size-3.5 ms-auto transition" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m6 9 6 6 6-6" />
-                    </svg>
-                </button>
-
-                <div id="balances-accordion-sub" class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300" role="region" aria-labelledby="balances-accordion" style="display: none;">
-                    <ul class="hs-accordion-group ps-8 mt-1 space-y-1 relative before:absolute before:top-0 before:start-5 before:w-0.5 before:h-full before:bg-gray-200 dark:before:bg-neutral-700" data-hs-accordion-always-open>
-                    <li>
-                        <a class="flex gap-x-4 py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700 " href="/pinjaman">
-                        Daftar pinjaman
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex gap-x-4 py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700 " href="/pinjaman/dipinjam">
-                        Daftar buku dipinjam
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex gap-x-4 py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700 " href="/pinjaman/hilang">
-                        Daftar buku hilang
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex gap-x-4 py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700 " href="/pinjaman/dikembalikan">
-                        Daftar buku dikembalikan
-                        </a>
-                    </li>
-                    </ul>
-                </div>
+                </a>
                 </li>
-                <!-- End Balances -->
+                <!-- End Link -->
 
                 <!-- Link -->
                 <li>
-                <a class="flex py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700 " href="../../pro/payment/empty-states.html">
+                <a class="{{ ($page == 'buku') ? $classPageActive : $classPageIdle }}" href="../../pro/payment/empty-states.html">
                     <span class="w-5 me-3">
                     <svg class="shrink-0 mt-0.5 size-4 mx-auto"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-library-big-icon lucide-library-big"><rect width="8" height="18" x="3" y="3" rx="1"/><path d="M7 3v18"/><path d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z"/></svg>
                     </span>
@@ -225,7 +201,7 @@
 
                 <!-- Link -->
                 <li>
-                <a class="flex py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700 " href="../../pro/payment/empty-states.html">
+                <a class="{{ ($page == 'kategori') ? $classPageActive : $classPageIdle }}" href="../../pro/payment/empty-states.html">
                     <span class="w-5 me-3">
                     <svg class="shrink-0 mt-0.5 size-4 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-blocks-icon lucide-blocks"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>
                     </span>
@@ -237,7 +213,7 @@
                 @if (Auth::user()->role == 'admin')                
                 <!-- Link -->
                 <li>
-                <a class="flex py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700 " href="../../pro/payment/empty-states.html">
+                <a class="{{ ($page == 'home') ? $classPageActive : $classPageIdle }}" href="../../pro/payment/empty-states.html">
                     <span class="w-5 me-3">
                     <svg class="shrink-0 mt-0.5 size-4 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-icon lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
                     </span>
