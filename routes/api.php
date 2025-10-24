@@ -11,8 +11,9 @@ use App\Http\Controllers\api\BorrowingController;
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/book/select', [BookController::class, 'search']);
+Route::get('/category/select', [CategoryController::class, 'search']);
 Route::middleware(['auth:sanctum'])->group(function () {
-
+    
     Route::middleware('role:admin')->group(function () {
         Route::post('/users', [UserController::class, 'store']);
         Route::put('/users/{id}/role', [UserController::class, 'updateRole']);

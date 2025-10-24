@@ -153,7 +153,7 @@ class BookController
 
     public function update(Request $request, $id){
         try {
-            $data = Book::where('id_category', $id)->firstOrFail();
+            $data = Book::where('id_book', $id)->firstOrFail();
 
             $validated = $request->validate([
                 'title' => 'required|string|max:255',

@@ -96,6 +96,42 @@ class CategoryController
         }
     }
 
+    public function search(Request $request){
+        try {
+            $query = $request->query('search');
+
+            $data = Category::when($query, function ($qBuilder) use ($query) {
+                $qBuilder->where('name', 'like', '%' . $query . '%');
+            })->get();
+
+            if ($data->isEmpty()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $query 
+                        ? 'Tidak ada kategori yang cocok dengan kata kunci "' . $query . '".'
+                        : 'Tidak ada data kategori yang tersedia.',
+                    'data' => [],
+                ], 404);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => $query
+                    ? 'Hasil pencarian kategori ditemukan.'
+                    : 'Data kategori ditemukan.',
+                'total' => $data->count(),
+                'data' => $data,
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Terjadi kesalahan saat mengambil data kategori.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function update(Request $request, $id){
         try {
             $data = Category::where('id_category', $id)->firstOrFail();

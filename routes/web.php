@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController; 
@@ -20,4 +21,11 @@ Route::middleware('user_role:admin,moderator,staff')->group(function () {
     Route::post('/pinjaman/{id}/patch', [BorrowingController::class, 'markAs'])->name('daftar.pinjaman.patch');
     Route::delete('/pinjaman/delete', [BorrowingController::class, 'destroy'])->name('daftar.pinjaman.delete');
     Route::get('/pinjaman/load', [BorrowingController::class, 'loadData'])->name('pinjaman.load');
+    
+    Route::get('/buku', [BookController::class, 'index'])->name('daftar.buku');
+    Route::post('/buku', [BookController::class, 'add'])->name('daftar.buku.add');
+    Route::get('/buku/{id}/detail', [BookController::class, 'show'])->name('daftar.buku.detail');
+    Route::put('/buku/{id}/update', [BookController::class, 'update'])->name('daftar.buku.update');
+    Route::delete('/buku/delete', [BookController::class, 'destroy'])->name('daftar.buku.delete');
+    Route::get('/buku/load', [BookController::class, 'loadData'])->name('buku.load');
 });
