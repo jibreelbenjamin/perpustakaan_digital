@@ -51,7 +51,7 @@
                 </div>
 
                 <div>
-                <button type="submit" class="flex w-full justify-center rounded-md bg-amber-600 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-amber-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">Masuk</button>
+                <button type="submit" onclick="login()" class="w-full py-2 px-3 inline-flex items-center justify-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-amber-600 text-white hover:bg-amber-700 focus:outline-hidden focus:bg-amber-700 disabled:opacity-50 disabled:pointer-events-none">Masuk</button>
                 </div>
             </form>
             </div>
@@ -62,7 +62,7 @@
                 <div class="w-full border-t border-gray-700"></div>
                 </div>
                 <div class="relative flex justify-center text-sm/6 font-medium">
-                <span class="bg-white px-6 text-gray-800 dark:bg-gray-900 dark:text-gray-300">Atau lanjutkan dengan</span>
+                <span class="bg-white px-6 text-gray-800 dark:bg-neutral-900 dark:text-gray-300">Atau lanjutkan dengan</span>
                 </div>
             </div>
 
@@ -93,3 +93,12 @@
 </x-toast>
 @endif
 <x-toast type='errors-has'></x-toast>
+
+<script>
+    function login(){
+        document.querySelector('form').submit()
+        const button = event.target;
+        button.disabled = true
+        button.innerHTML = '<svg class="shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="4" cy="12" r="3" fill="currentColor"><animate id="SVGKiXXedfO" attributeName="cy" begin="0;SVGgLulOGrw.end+0.25s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle><circle cx="12" cy="12" r="3" fill="currentColor"><animate attributeName="cy" begin="SVGKiXXedfO.begin+0.1s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle><circle cx="20" cy="12" r="3" fill="currentColor"><animate id="SVGgLulOGrw" attributeName="cy" begin="SVGKiXXedfO.begin+0.2s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle></svg>'
+    }
+</script>

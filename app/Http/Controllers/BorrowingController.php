@@ -304,27 +304,35 @@ class BorrowingController
             $buku = json_decode($responses['book']->getBody(), true)['data'] ?? [];
             $pinjamanRaw = json_decode($responses['borrow']->getBody(), true)['data'] ?? [];
 
-            // filter buku sesuai search jika ada
-            if ($search) {
-                $search = strtolower($search);
-                $buku = collect($buku)->filter(function ($b) use ($search) {
-                    // Gabungkan semua nilai field jadi 1 string
-                    $combined = strtolower(implode(' ', $b));
-                    return str_contains($combined, $search);
-                })->values()->all();
-            }
-
             $bukuIndexed = collect($buku)->keyBy('id_book');
 
-            // map pinjaman + attach buku
+            // Gabungkan data pinjaman + buku
             $pinjaman = collect($pinjamanRaw)
                 ->map(function ($item) use ($bukuIndexed) {
                     $item['buku'] = $bukuIndexed[$item['id_book']] ?? null;
                     return $item;
-                })
-                ->filter(function($item) use ($search) {
-                    return $search ? $item['buku'] !== null : true;
-                })
+                });
+
+            // Fungsi bantu untuk flatten array menjadi string
+            $flattenToString = function ($data) use (&$flattenToString) {
+                if (is_array($data)) {
+                    return implode(' ', array_map($flattenToString, $data));
+                }
+                return (string) $data;
+            };
+
+            // Filter berdasarkan $search (cari di data pinjaman & buku)
+            if ($search) {
+                $search = strtolower($search);
+                $pinjaman = $pinjaman->filter(function ($item) use ($search, $flattenToString) {
+                    $borrowCombined = strtolower($flattenToString($item));
+                    $bookCombined = isset($item['buku']) ? strtolower($flattenToString($item['buku'])) : '';
+                    return str_contains($borrowCombined, $search) || str_contains($bookCombined, $search);
+                });
+            }
+
+            // Pagination + urutan
+            $pinjaman = $pinjaman
                 ->reverse()
                 ->slice($offset, $limit)
                 ->values();

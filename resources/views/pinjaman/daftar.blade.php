@@ -21,9 +21,9 @@
             Daftar pinjaman buku
           </h1>
           @if (!empty($pinjaman))
-          <p class="text-sm text-gray-500">Total <b>{{ number_format($total) }}</b> data tercatat</p>
+          <p class="text-sm text-gray-500 dark:text-neutral-500">Total <b>{{ number_format($total) }}</b> data tercatat</p>
           @else
-          <p class="text-sm text-gray-500">Tidak ada data tercatat</p>
+          <p class="text-sm text-gray-500 dark:text-neutral-500">Tidak ada data tercatat</p>
           @endif
         </div>
         <!-- End Col -->
@@ -200,11 +200,11 @@ function loadMoreData(reset = false) {
                                         </ul>
                                     </div>
                                     <div class="text-end">
-                                        <p class="whitespace-nowrap font-medium sm:text-md text-gray-800 dark:text-white">
-                                            ${new Date(item.borrow_date).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}
+                                        <p class="font-sm sm:text-md text-gray-800 dark:text-white">
+                                            Dipinjam ${item.borrow_date}
                                         </p>
-                                        <p class="whitespace-nowrap text-sm text-gray-500 dark:text-neutral-500">
-                                            ${new Date(item.created_at).toLocaleDateString('id', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
+                                        <p class="text-xs text-gray-500 dark:text-neutral-500">
+                                            Terakhir diupdate ${new Date(item.created_at).toLocaleDateString('id', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })}
                                         </p>
                                     </div>
                                 </div>
