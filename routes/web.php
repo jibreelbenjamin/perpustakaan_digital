@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\HomeController;
@@ -28,4 +29,11 @@ Route::middleware('user_role:admin,moderator,staff')->group(function () {
     Route::put('/buku/{id}/update', [BookController::class, 'update'])->name('daftar.buku.update');
     Route::delete('/buku/delete', [BookController::class, 'destroy'])->name('daftar.buku.delete');
     Route::get('/buku/load', [BookController::class, 'loadData'])->name('buku.load');
+    
+    Route::get('/kategori', [CategoryController::class, 'index'])->name('daftar.kategori');
+    Route::post('/kategori', [CategoryController::class, 'add'])->name('daftar.kategori.add');
+    Route::get('/kategori/{id}/detail', [CategoryController::class, 'show'])->name('daftar.kategori.detail');
+    Route::put('/kategori/{id}/update', [CategoryController::class, 'update'])->name('daftar.kategori.update');
+    Route::delete('/kategori/delete', [CategoryController::class, 'destroy'])->name('daftar.kategori.delete');
+    Route::get('/kategori/load', [CategoryController::class, 'loadData'])->name('kategori.load');
 });

@@ -1,5 +1,5 @@
 @php
-    $page = 'buku';
+    $page = 'kategori';
 @endphp
 <x-app :page='$page'>
     <div class="max-w-4xl mx-auto py-5 sm:py-10 px-5 md:px-8 2xl:px-5">
@@ -21,9 +21,9 @@
       <div class="mb-3 flex flex-col md:flex-row md:items-center gap-y-2 md:gap-y-0 gap-3">
         <div>
           <h1 class="font-semibold text-lg md:text-xl text-gray-800 dark:text-white">
-            Daftar buku
+            Daftar kategori
           </h1>
-          @if (!empty($buku))
+          @if (!empty($kategori))
           <p class="text-sm text-gray-500 dark:text-neutral-500">Total <b>{{ number_format($total) }}</b> data tercatat</p>
           @else
           <p class="text-sm text-gray-500 dark:text-neutral-500">Tidak ada data tercatat</p>
@@ -40,7 +40,7 @@
                 <path d="m21 21-4.3-4.3" />
               </svg>
             </div>
-            <input type="text" id="search-input" class="py-1.5 sm:py-2 ps-10 pe-8 block w-full bg-gray-100 border-transparent rounded-xl sm:text-sm hover:bg-gray-200 focus:bg-white focus:border-amber-500 focus:ring-amber-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:bg-neutral-900 dark:focus:ring-neutral-600" placeholder="Cari data buku" autocomplete="off">
+            <input type="text" id="search-input" class="py-1.5 sm:py-2 ps-10 pe-8 block w-full bg-gray-100 border-transparent rounded-xl sm:text-sm hover:bg-gray-200 focus:bg-white focus:border-amber-500 focus:ring-amber-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:bg-neutral-900 dark:focus:ring-neutral-600" placeholder="Cari data kategori" autocomplete="off">
             <div class="hidden absolute inset-y-0 end-0 flex items-center pointer-events-none z-20 pe-1">
               <button type="button" class="inline-flex shrink-0 justify-center items-center size-6 rounded-full text-gray-500 hover:text-amber-600 focus:outline-hidden focus:text-amber-600 dark:text-neutral-500 dark:hover:text-amber-500 dark:focus:text-amber-500" aria-label="Close">
                 <span class="sr-only">Close</span>
@@ -56,7 +56,7 @@
 
           @if (Auth::user()->role != 'staff')              
           <!-- Button -->
-          <button type="button" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-xl bg-gray-100 border border-transparent text-gray-800 hover:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-form-tambah-buku-modal" data-hs-overlay="#hs-form-tambah-buku-modal">
+          <button type="button" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-xl bg-gray-100 border border-transparent text-gray-800 hover:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-form-tambah-kategori-modal" data-hs-overlay="#hs-form-tambah-kategori-modal">
             <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus-icon lucide-circle-plus"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
             Tambah
           </button>
@@ -71,9 +71,9 @@
       <div>
         <div class="mb-3">
           <!-- List -->
-          <div id="buku-container" class="-mx-3">
+          <div id="kategori-container" class="-mx-3">
 
-            @if (!empty($buku))
+            @if (!empty($kategori))
 
             @else
                 <div class="p-5 min-h-96 flex flex-col justify-center items-center text-center">
@@ -126,7 +126,7 @@
       </div>
       <!-- End Borrowings List Group Card -->
 
-        @if (!empty($buku))      
+        @if (!empty($kategori))      
             <div class="mt-4">
                 <p id="loading" class="my-10 font-medium text-sm text-amber-600 dark:text-amber-500 hidden">
                     <svg class="shrink-0 size-5 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="4" cy="12" r="3" fill="currentColor"><animate id="SVGKiXXedfO" attributeName="cy" begin="0;SVGgLulOGrw.end+0.25s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle><circle cx="12" cy="12" r="3" fill="currentColor"><animate attributeName="cy" begin="SVGKiXXedfO.begin+0.1s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle><circle cx="20" cy="12" r="3" fill="currentColor"><animate id="SVGgLulOGrw" attributeName="cy" begin="SVGKiXXedfO.begin+0.2s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle></svg>
@@ -138,26 +138,26 @@
         @endif
     </div>
 
-    <!-- Form Tambah Buku Modal -->
-    <div id="hs-form-tambah-buku-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-form-tambah-buku-modal-label">
+    <!-- Form Tambah Kategori Modal -->
+    <div id="hs-form-tambah-kategori-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-form-tambah-kategori-modal-label">
         <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
             <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
                 <div class="p-7">
                     <div class="flex justify-between">
-                        <h3 id="hs-form-tambah-buku-modal-label" class="font-bold text-gray-800 dark:text-white">
-                        Tambah data buku
-                        <p class="text-xs font-medium text-gray-500">Menambahkan daftar buku baru ke dalam sistem.</p>
+                        <h3 id="hs-form-tambah-kategori-modal-label" class="font-bold text-gray-800 dark:text-white">
+                        Tambah kategori
+                        <p class="text-xs font-medium text-gray-500">Menambahkan daftar kategori baru ke dalam sistem.</p>
                         </h3>
                     </div>
                     <div class="py-5 overflow-y-auto">
                         <div class="grid gap-y-4">
                             <!-- Form Group -->
                             <div>
-                                <label for="title" class="block text-sm mb-2 dark:text-white">Judul buku</label>
+                                <label for="name" class="block text-sm mb-2 dark:text-white">Nama kategori</label>
                                 <div class="relative">
-                                <input type="text" id="title" placeholder="Masukan judul buku" class="apperance-none py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-amber-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500" autocomplete="off">
+                                <input type="text" id="name" placeholder="Masukan nama kategori" class="apperance-none py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-amber-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500" autocomplete="off">
                                 </div>
-                                <p id="title_label" class="hidden flex items-center gap-x-1 ml-1 mt-1 text-xs text-red-500 dark:text-red-600">
+                                <p id="name_label" class="hidden flex items-center gap-x-1 ml-1 mt-1 text-xs text-red-500 dark:text-red-600">
                                     <svg class="shrink-0 size-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
                                     <span><!-- --></span>
                                 </p>
@@ -166,76 +166,11 @@
 
                             <!-- Form Group -->
                             <div>
-                                <label class="block text-sm mb-2 dark:text-white">Kategori</label>
+                                <label for="description" class="block text-sm mb-2 dark:text-white">Deskripsi (opsional)</label>
                                 <div class="relative">
-                                <select id="id_category" data-hs-select='{
-                                    "apiUrl": "https://perpustakaan_digital.test/api/category/select",
-                                    "apiQuery": "",
-                                    "apiSearchQueryKey": "search",
-                                    "apiDataPart": "data",
-                                    "apiFieldsMap": {
-                                        "id": "id_category",
-                                        "val": "id_category",
-                                        "title": "name",
-                                        "description": "description"
-                                    },
-
-                                    "isSelectedOptionOnTop": true,
-                                    "hasSearch": true,
-                                    "searchPlaceholder": "Cari kategori...",
-                                    "searchClasses": "block w-full sm:text-sm border-gray-200 rounded-lg focus:border-amber-500 focus:ring-amber-500 before:absolute before:inset-0 before:z-1 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 py-1.5 sm:py-2 px-3",
-                                    "searchWrapperClasses": "bg-white p-2 -mx-1 -mt-1 sticky top-0 dark:bg-neutral-900",
-                                    "placeholder": "Pilih kategori...",
-                                    "toggleTag": "<button id=\"category\" type=\"button\" aria-expanded=\"false\"><span class=\"\" data-title></span></button>",
-                                    "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex gap-x-2 text-nowrap w-full cursor-pointer bg-white border border-gray-200 rounded-lg text-start text-sm focus:outline-hidden focus:border-amber-500 focus:ring-amber-500 dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400",
-                                    "dropdownClasses": "mt-2 max-h-72 pb-1 px-1 space-y-0.5 z-20 w-full bg-white border border-gray-200 rounded-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 dark:bg-neutral-900 dark:border-neutral-700",
-                                    "optionClasses": "py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-200 dark:focus:bg-neutral-800",
-                                    "optionTemplate": "<div class=\"flex items-center\"><div><div class=\"text-sm font-semibold text-gray-800 dark:text-neutral-200 \" data-title></div><div class=\"text-xs text-gray-500 dark:text-neutral-500 \" data-description></div></div><div class=\"ms-auto\"><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-4 text-amber-600\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 16 16\"><path d=\"M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z\"/></svg></span></div></div>",
-                                    "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-gray-500 dark:text-neutral-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
-                                    }' class="hidden">
-                                    <option value="">Choose</option>
-                                </select>
+                                <input type="text" id="description" placeholder="Masukan deskripsi" class="apperance-none py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-amber-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500" autocomplete="off">
                                 </div>
-                                <p id="category_label" class="hidden flex items-center gap-x-1 ml-1 mt-1 text-xs text-red-500 dark:text-red-600">
-                                    <svg class="shrink-0 size-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
-                                    <span><!-- --></span>
-                                </p>
-                            </div>
-                            <!-- End Form Group -->
-
-                            <!-- Form Group -->
-                            <div>
-                                <label for="author" class="block text-sm mb-2 dark:text-white">Author</label>
-                                <div class="relative">
-                                <input type="text" id="author" placeholder="Masukan nama penulis" class="apperance-none py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-amber-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500" autocomplete="off">
-                                </div>
-                                <p id="author_label" class="hidden flex items-center gap-x-1 ml-1 mt-1 text-xs text-red-500 dark:text-red-600">
-                                    <svg class="shrink-0 size-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
-                                    <span><!-- --></span>
-                                </p>
-                            </div>
-                            <!-- End Form Group -->
-
-                            <!-- Form Group -->
-                            <div>
-                                <label for="publisher" class="block text-sm mb-2 dark:text-white">Publisher (opsional)</label>
-                                <div class="relative">
-                                <input type="text" id="publisher" placeholder="Masukan penerbit" class="apperance-none py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-amber-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500" autocomplete="off">
-                                </div>
-                                <p id="publisher_label" class="hidden flex items-center gap-x-1 ml-1 mt-1 text-xs text-red-500 dark:text-red-600">
-                                    <svg class="shrink-0 size-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
-                                    <span><!-- --></span>
-                                </p>
-                            </div>
-                            <!-- End Form Group -->
-
-                            <!-- Form Group -->
-                            <div>
-                                <label for="year" class="block text-sm mb-2 dark:text-white">Tahun (opsional)</label>
-                                <div class="relative">
-                                <input type="number" id="year" placeholder="Masukan tahun terbit" class="apperance-none py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-amber-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500" autocomplete="off">
-                                </div>
-                                <p id="year_label" class="hidden flex items-center gap-x-1 ml-1 mt-1 text-xs text-red-500 dark:text-red-600">
+                                <p id="description_label" class="hidden flex items-center gap-x-1 ml-1 mt-1 text-xs text-red-500 dark:text-red-600">
                                     <svg class="shrink-0 size-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
                                     <span><!-- --></span>
                                 </p>
@@ -245,18 +180,18 @@
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-x-2  ">
-                        <button id="btn-close" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#hs-form-tambah-buku-modal">
+                        <button id="btn-close" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#hs-form-tambah-kategori-modal">
                         Tutup
                         </button>
                         <button id="btn-send" onclick="input()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-amber-600 text-white hover:bg-amber-700 focus:outline-hidden focus:bg-amber-700 disabled:opacity-50 disabled:pointer-events-none">
-                        Tambah buku
+                        Tambah kategori
                         </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Form Tambah Buku Modal -->
+    <!-- End Form Tambah Kategori Modal -->
 </x-app>
 
 <script>
@@ -267,11 +202,15 @@ let allDataLoaded = false;
 let searchQuery = '';
 let debounceTimer = null;
 
+function limitText(text, limit) {
+  if (text.length <= limit) return text;
+  return text.substring(0, limit) + '...';
+}
 function loadMoreData(reset = false) {
     if (reset) {
         offset = 0;
         allDataLoaded = false;
-        document.getElementById('buku-container').innerHTML = '';
+        document.getElementById('kategori-container').innerHTML = '';
         document.getElementById('end').classList.add('hidden');
     }
 
@@ -281,7 +220,7 @@ function loadMoreData(reset = false) {
 
     searchQuery = document.getElementById('search-input').value;
     setTimeout(() => {
-        fetch(`/buku/load?offset=${offset}&limit=${limit}&search=${encodeURIComponent(searchQuery)}`)
+        fetch(`/kategori/load?offset=${offset}&limit=${limit}&search=${encodeURIComponent(searchQuery)}`)
             .then(res => res.json())
             .then(data => {
                 document.getElementById('loading').classList.add('hidden');
@@ -298,25 +237,27 @@ function loadMoreData(reset = false) {
                     return;
                 }
 
-                const container = document.getElementById('buku-container');
+                const container = document.getElementById('kategori-container');
                 data.forEach(item => {
+                    if(item.description != null){
+                        short_desc = limitText(item.description, 20)
+                    } else {
+                        short_desc = 'tanpa deskripsi'
+                    }
                     container.insertAdjacentHTML('beforeend', `
-                        <a class="mb-2 p-3 group flex gap-x-4 rounded-2xl hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" href="/buku/${item.id_book}/detail">
+                        <a class="mb-2 p-3 group flex gap-x-4 rounded-2xl hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" href="/kategori/${item.id_category}/detail">
                             <div class="grow">
                                 <div class="flex justify-between items-center gap-x-3">
                                     <div>
                                         <h4 class="font-medium text-gray-800 dark:text-white">
-                                            ${item.title}
+                                            ${item.name}
                                         </h4>
                                         <ul class="flex flex-wrap">
                                             <li class="inline-block relative text-sm text-gray-500 pe-4 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-1.5 before:-translate-y-1/2 before:size-[3px] before:bg-gray-500 before:rounded-full dark:before:bg-neutral-500 dark:text-neutral-500"">
-                                                #${item.id_book}
+                                                #${item.id_category}
                                             </li>
                                             <li class="inline-block relative text-sm text-gray-500 pe-4 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-1.5 before:-translate-y-1/2 before:size-[3px] before:bg-gray-500 before:rounded-full dark:before:bg-neutral-500 dark:text-neutral-500"">
-                                                ${item.year}
-                                            </li>
-                                            <li class="inline-block relative text-sm text-gray-500 pe-4 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-1.5 before:-translate-y-1/2 before:size-[3px] before:bg-gray-500 before:rounded-full dark:before:bg-neutral-500 dark:text-neutral-500"">
-                                                ${item.author}
+                                                ${short_desc}
                                             </li>
                                         </ul>
                                     </div>
@@ -367,35 +308,25 @@ document.getElementById('search-input').addEventListener('input', (e) => {
 function input(){
     const button = document.getElementById('btn-send')
     const label = document.getElementById('error')
-    var title = document.getElementById('title')
-    var id_category = document.getElementById('id_category')
-    var category = document.getElementById('category')
-    var author = document.getElementById('author')
-    var publisher = document.getElementById('publisher')
-    var year = document.getElementById('year')
+    var name = document.getElementById('name')
+    var description = document.getElementById('description')
 
-    var title_label = document.getElementById('title_label')
-    var category_label = document.getElementById('category_label')
-    var author_label = document.getElementById('author_label')
-    var publisher_label = document.getElementById('publisher_label')
-    var year_label = document.getElementById('year_label')
+    var name_label = document.getElementById('name_label')
+    var description_label = document.getElementById('description_label')
 
     button.disabled = true
     button.textContent = "Loading..."
     label.textContent = ''
 
-    fetch("https://perpustakaan_digital.test/buku", {
+    fetch("https://perpustakaan_digital.test/kategori", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         body: JSON.stringify({
-            title: title.value,
-            id_category: id_category.value,
-            author: author.value,
-            publisher: publisher.value,
-            year: year.value,
+            name: name.value,
+            description: description.value
         })
     })
     .then(async (response) => {
@@ -406,45 +337,27 @@ function input(){
             throw new Error(data.message || 'Gagal mengirim data ke server');
         }
 
-        [title, category, author, publisher, year].forEach(el => {
+        [name, description].forEach(el => {
             el.classList.replace('border-red-500','border-gray-200')
             el.classList.replace('dark:border-red-600','dark:border-neutral-800')
         });
-        [title_label, category_label, author_label, publisher_label, year_label].forEach(el => {
+        [name_label, description_label].forEach(el => {
             el.classList.add('hidden')
         });
 
         if (data.status === false) {
             if (data.errors && typeof data.errors === 'object') {
-                if(data.errors.title){
-                    title.classList.replace('border-gray-200','border-red-500')
-                    title.classList.replace('dark:border-neutral-800','dark:border-red-600')
-                    title_label.classList.remove('hidden')
-                    title_label.querySelector('span').textContent = data.errors.title
+                if(data.errors.name){
+                    name.classList.replace('border-gray-200','border-red-500')
+                    name.classList.replace('dark:border-neutral-800','dark:border-red-600')
+                    name_label.classList.remove('hidden')
+                    name_label.querySelector('span').textContent = data.errors.name
                 }
-                if(data.errors.id_category){
-                    category.classList.replace('border-gray-200','border-red-500')
-                    category.classList.replace('dark:border-neutral-800','dark:border-red-600')
-                    category_label.classList.remove('hidden')
-                    category_label.querySelector('span').textContent = data.errors.id_category
-                }
-                if(data.errors.author){
-                    author.classList.replace('border-gray-200','border-red-500')
-                    author.classList.replace('dark:border-neutral-800','dark:border-red-600')
-                    author_label.classList.remove('hidden')
-                    author_label.querySelector('span').textContent = data.errors.author
-                }
-                if(data.errors.publisher){
-                    publisher.classList.replace('border-gray-200','border-red-500')
-                    publisher.classList.replace('dark:border-neutral-800','dark:border-red-600')
-                    publisher_label.classList.remove('hidden')
-                    publisher_label.querySelector('span').textContent = data.errors.publisher
-                }
-                if(data.errors.year){
-                    year.classList.replace('border-gray-200','border-red-500')
-                    year.classList.replace('dark:border-neutral-800','dark:border-red-600')
-                    year_label.classList.remove('hidden')
-                    year_label.querySelector('span').textContent = data.errors.year
+                if(data.errors.description){
+                    description.classList.replace('border-gray-200','border-red-500')
+                    description.classList.replace('dark:border-neutral-800','dark:border-red-600')
+                    description_label.classList.remove('hidden')
+                    description_label.querySelector('span').textContent = data.errors.description
                 }
             }
         } else {
@@ -454,13 +367,13 @@ function input(){
         }
 
         button.disabled = false;
-        button.textContent = "Tambah buku";
+        button.textContent = "Tambah kategori";
         label.textContent = data.error || '';
     })
     .catch(error => {
         console.error('Error:', error);
         button.disabled = false;
-        button.textContent = "Tambah buku";
+        button.textContent = "Tambah kategori";
         label.textContent = error.message || 'Terjadi kesalahan koneksi.';
     });
 }
