@@ -45,7 +45,7 @@ class UserController
                 'name' => 'required|string|max:255',
                 'username' => 'required|string|max:255|unique:users,username',
                 'password' => 'required|string|min:6',
-                'role' => 'nullable|in:admin,moderator,staff',
+                'role' => 'required|in:admin,moderator,staff',
                 'phone' => 'nullable|regex:/^[0-9]+$/|digits_between:12,15',
             ], [
                 'name.required' => 'Nama wajib diisi',
@@ -53,6 +53,7 @@ class UserController
                 'username.unique' => 'Username sudah digunakan',
                 'password.required' => 'Password wajib diisi',
                 'password.min' => 'Password minimal 6 karakter',
+                'role.required' => 'Role wajib dipilih',
                 'role.in' => 'Role tidak valid',
                 'phone.regex' => 'No Telp tidak valid',
                 'phone.digits_between' => 'No Telp tidak valid',
@@ -116,27 +117,22 @@ class UserController
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'username' => 'required|string|max:255|unique:users,username,' . $data->id_user . ',id_user',
+                'role' => 'required|in:admin,moderator,staff',
                 'phone' => 'nullable|regex:/^[0-9]+$/|digits_between:12,15',
-                'password_auth' => 'required|string',
             ], [
                 'name.required' => 'Nama wajib diisi',
                 'username.required' => 'Username wajib diisi',
                 'username.unique' => 'Username sudah digunakan',
+                'role.required' => 'Role wajib dipilih',
+                'role.in' => 'Role tidak valid',
                 'phone.regex' => 'No Telp tidak valid',
                 'phone.digits_between' => 'No Telp tidak valid',
-                'password_auth.required' => 'Password akun harus diisi'
             ]);
-
-            if (!Hash::check($validated['password_auth'], $data->password)) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Password akun salah'
-                ], 400);
-            }
 
             $data->update([
                 'name' => $validated['name'],
                 'username' => $validated['username'],
+                'role' => $validated['role'],
                 'phone' => $validated['phone'] ?? '',
             ]);
 

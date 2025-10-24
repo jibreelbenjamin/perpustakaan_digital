@@ -8,33 +8,33 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class BookController
+class UserController
 {
     protected $base_url = "https://perpustakaan_digital.test/api";
     public function index(Request $request){
         try {
-            $response = (new Client())->get("{$this->base_url}/book", [
+            $response = (new Client())->get("{$this->base_url}/users", [
                 'headers' => [
                     'Authorization' => 'Bearer ' . session('token'),
                 ],
             ]);
-            $buku = json_decode($response->getBody(), true)['data'] ?? [];
+            $user = json_decode($response->getBody(), true)['data'] ?? [];
 
-            return view('buku.daftar', [
-                'total' => count($buku),
-                'buku' => $buku,
+            return view('user.daftar', [
+                'total' => count($user),
+                'user' => $user,
             ]);
 
         } catch (ClientException $e) {
-            return view('buku.daftar', [
+            return view('user.daftar', [
                 'total' => 0,
-                'buku' => [],
+                'user' => [],
                 'error' => 'Gagal memuat data: ' . $e->getMessage(),
             ]);
         } catch (\Exception $e) {
-            return view('buku.daftar', [
+            return view('user.daftar', [
                 'total' => 0,
-                'buku' => [],
+                'user' => [],
                 'error' => 'Terjadi kesalahan: ' . $e->getMessage(),
             ]);
         }
@@ -44,16 +44,16 @@ class BookController
         $token = session('token') ?? null;
 
         $data = [
-            'title' => $request->title,
-            'id_category' => $request->id_category,
-            'author' => $request->author,
-            'publisher' => $request->publisher,
-            'year' => $request->year,
+            'name' => $request->name,
+            'username' => $request->username,
+            'password' => $request->password,
+            'role' => $request->role,
+            'phone' => $request->phone,
         ];
 
         try {
             $client = new Client();
-            $response = $client->post('https://perpustakaan_digital.test/api/book', [
+            $response = $client->post('https://perpustakaan_digital.test/api/users', [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                     'Accept' => 'application/json',
@@ -99,55 +99,47 @@ class BookController
             'Authorization' => 'Bearer ' . session('token'),
         ];
 
-        $urlBook = "{$this->base_url}/book";
-        $urlCategory = "{$this->base_url}/category";
+        $urlUser = "{$this->base_url}/users";
         $urlBorrow = "{$this->base_url}/borrow";
 
         $promises = [
-            'book' => $client->getAsync($urlBook, ['headers' => $headers]),
-            'category' => $client->getAsync($urlCategory, ['headers' => $headers]),
+            'user' => $client->getAsync($urlUser, ['headers' => $headers]),
             'borrow' => $client->getAsync($urlBorrow, ['headers' => $headers]),
         ];
 
         try {
             $responses = Utils::unwrap($promises);
 
-            $buku = data_get(json_decode($responses['book']->getBody(), true), 'data', []);
-            $kategori = data_get(json_decode($responses['category']->getBody(), true), 'data', []);
+            $users = data_get(json_decode($responses['user']->getBody(), true), 'data', []);
             $pinjaman = data_get(json_decode($responses['borrow']->getBody(), true), 'data', []);
 
-            $bukuCollection = collect($buku);
-            $kategoriCollection = collect($kategori);
+            $userCollection = collect($users);
             $pinjamanCollection = collect($pinjaman);
 
-            $bukuDetail = $bukuCollection->firstWhere('id_book', $id);
+            $userDetail = $userCollection->firstWhere('id_user', $id);
 
-            if (!$bukuDetail) {
-                return view('buku.detail', [
-                    'total' => 0,
-                    'buku' => [],
-                    'error' => 'Data buku tidak ditemukan.',
+            if (!$userDetail) {
+                return view('user.detail', [
+                    'user' => null,
+                    'error' => 'Data user tidak ditemukan.',
                 ]);
             }
 
-            $kategoriBuku = $kategoriCollection->firstWhere('id_category', $bukuDetail['id_category'] ?? null);
-            $bukuDetail['kategori'] = $kategoriBuku;
+            $totalPinjaman = $pinjamanCollection->where('petugas', $id)->count();
+            $userDetail['total_pinjaman'] = $totalPinjaman;
 
-            $totalPinjaman = $pinjamanCollection->where('id_book', $id)->count();
-            $bukuDetail['total_pinjaman'] = $totalPinjaman;
-
-            return view('buku.detail', [
-                'buku' => $bukuDetail,
+            return view('user.detail', [
+                'user' => $userDetail,
             ]);
 
         } catch (ClientException $e) {
-            return view('buku.detail', [
-                'buku' => null,
+            return view('user.detail', [
+                'user' => null,
                 'error' => 'Gagal memuat data: ' . $e->getMessage(),
             ]);
         } catch (\Exception $e) {
-            return view('buku.detail', [
-                'buku' => null,
+            return view('user.detail', [
+                'user' => null,
                 'error' => 'Terjadi kesalahan: ' . $e->getMessage(),
             ]);
         }
@@ -157,16 +149,16 @@ class BookController
         $token = session('token') ?? null;
 
         $data = [
-            'title' => $request->title,
-            'id_category' => $request->id_category,
-            'author' => $request->author,
-            'publisher' => $request->publisher,
-            'year' => $request->year,
+            'name' => $request->name,
+            'username' => $request->username,
+            'password' => $request->password,
+            'role' => $request->role,
+            'phone' => $request->phone,
         ];
 
         try {
             $client = new Client();
-            $response = $client->put("https://perpustakaan_digital.test/api/book/{$id}", [
+            $response = $client->put("https://perpustakaan_digital.test/api/users/{$id}", [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                 ],
@@ -211,22 +203,22 @@ class BookController
             'Authorization' => 'Bearer ' . session('token'),
         ];
 
-        $urlBook = "{$this->base_url}/book/{$request->id}";
+        $urlUser = "{$this->base_url}/users/{$request->id}";
 
         $promises = [
-            'book' => $client->getAsync($urlBook, ['headers' => $headers]),
+            'users' => $client->getAsync($urlUser, ['headers' => $headers]),
         ];
 
         try {
             $responses = Utils::unwrap($promises);
-            $pinjaman = data_get(json_decode($responses['book']->getBody(), true), 'data', null);
+            $pinjaman = data_get(json_decode($responses['users']->getBody(), true), 'data', null);
 
             if (!$pinjaman) {
-                return back()->withErrors(['message' => 'Buku tidak ditemukan']);
+                return back()->withErrors(['message' => 'Petugas pinjaman tidak ditemukan']);
             }
             
-            if($client->request('DELETE', $urlBook, ['headers' => $headers])){
-                return redirect()->route('daftar.buku')->with('successToast', 'Buku berhasil dihapus');
+            if($client->request('DELETE', $urlUser, ['headers' => $headers])){
+                return redirect()->route('daftar.user')->with('successToast', 'Petugas berhasil dihapus');
             } else {
                 return back()->withErrors(['message' => 'Terjadi kesalahan saat menghapus']);
             }
@@ -250,12 +242,12 @@ class BookController
 
         try {
             $responses = Utils::unwrap([
-                'book' => $client->getAsync("{$this->base_url}/book", ['headers' => $headers]),
+                'users' => $client->getAsync("{$this->base_url}/users", ['headers' => $headers]),
             ]);
 
-            $buku = json_decode($responses['book']->getBody(), true)['data'] ?? [];
+            $user = json_decode($responses['users']->getBody(), true)['data'] ?? [];
 
-            $buku = collect($buku);
+            $user = collect($user);
 
             $flattenToString = function ($array) {
                 return collect($array)->flatten()->implode(' ');
@@ -263,23 +255,23 @@ class BookController
 
             if ($search) {
                 $search = strtolower($search);
-                $buku = $buku->filter(function ($item) use ($search, $flattenToString) {
+                $user = $user->filter(function ($item) use ($search, $flattenToString) {
                     $bookCombined = strtolower($flattenToString($item));
                     return str_contains($bookCombined, $search);
                 });
             }
 
-            $buku = $buku
+            $user = $user
                 ->reverse()
                 ->slice($offset, $limit)
                 ->values();
 
-            return response()->json($buku, 200);
+            return response()->json($user, 200);
 
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Terjadi kesalahan saat mengambil data buku.',
+                'message' => 'Terjadi kesalahan saat mengambil data user.',
                 'error' => $e->getMessage(),
             ], 500);
         }

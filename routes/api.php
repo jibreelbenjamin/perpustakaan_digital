@@ -16,6 +16,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     
     Route::middleware('role:admin')->group(function () {
         Route::post('/users', [UserController::class, 'store']);
+        Route::put('/users/{id}', [UserController::class, 'update']);
         Route::put('/users/{id}/role', [UserController::class, 'updateRole']);
         Route::delete('/users/{id}', [UserController::class, 'destroy']);
     });   
@@ -30,16 +31,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
     });
     
-    Route::get('/users', [UserController::class, 'index']);
-    Route::get('/users/{id}', [UserController::class, 'show']);
-    
     Route::get('/book', [BookController::class, 'index']);
     Route::get('/book/{id}', [BookController::class, 'show']);
     
     Route::get('/category', [CategoryController::class, 'index']);
     Route::get('/category/{id}', [CategoryController::class, 'show']);
     
-    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
     Route::put('/users/{id}/password', [UserController::class, 'updatePassword']);
     
     Route::get('/borrow', [BorrowingController::class, 'index']);
