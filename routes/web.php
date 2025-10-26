@@ -28,7 +28,7 @@ Route::middleware('user_role:admin,moderator,staff')->group(function () {
         Route::post('/buku', [BookController::class, 'add'])->name('daftar.buku.add');
         Route::put('/buku/{id}/update', [BookController::class, 'update'])->name('daftar.buku.update');
         Route::delete('/buku/delete', [BookController::class, 'destroy'])->name('daftar.buku.delete');
-        
+
         Route::post('/kategori', [CategoryController::class, 'add'])->name('daftar.kategori.add');
         Route::put('/kategori/{id}/update', [CategoryController::class, 'update'])->name('daftar.kategori.update');
         Route::delete('/kategori/delete', [CategoryController::class, 'destroy'])->name('daftar.kategori.delete');

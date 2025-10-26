@@ -73,9 +73,7 @@
           <!-- List -->
           <div id="kategori-container" class="-mx-3">
 
-            @if (!empty($kategori))
-
-            @else
+            @if (empty($kategori))
                 <div class="p-5 min-h-96 flex flex-col justify-center items-center text-center">
                     <svg class="w-48 mx-auto mb-4" width="178" height="90" viewBox="0 0 178 90" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="27" y="50.5" width="124" height="39" rx="7.5" fill="currentColor" class="fill-white dark:fill-neutral-800" />

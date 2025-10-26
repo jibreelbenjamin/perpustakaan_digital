@@ -11,7 +11,7 @@ class WebMiddleware
 {
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (!Auth::check() || !session('token')) {
+        if (!Auth::check() && !session('token')) {
             return redirect()->route('login')->withErrors([
                 'message' => 'Login terlebih dahulu.'
             ]);
