@@ -5,7 +5,7 @@
     <div class="max-w-4xl mx-auto py-5 sm:py-10 px-5 md:px-8 2xl:px-5">
       <!-- Button -->
       <div class="mb-5">
-        <a class="pe-3 group inline-flex items-center gap-x-2 text-start text-sm text-gray-800 rounded-full hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" href="/kategori">
+        <a class="pe-3 group inline-flex items-center gap-x-2 text-start text-sm text-gray-800 rounded-full hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" href="{{ route('daftar.kategori') }}">
           <span class="shrink-0 size-9 inline-flex justify-center items-center bg-gray-100 rounded-full group-hover:bg-gray-200 group-focus:bg-gray-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700 dark:group-focus:bg-neutral-700">
             <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="m12 19-7-7 7-7" />
@@ -250,7 +250,7 @@ function input(){
     button.textContent = "Loading..."
     label.textContent = ''
 
-    fetch("https://perpustakaan_digital.test/kategori/{{ $kategori['id_category'] }}/update", {
+    fetch("{{ route('daftar.kategori.update', $kategori['id_category']) }}", {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

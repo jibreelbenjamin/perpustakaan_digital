@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController
 {
-    protected $base_url = "https://perpustakaan_digital.test/api";
+    protected $base_url;
+    public function __construct(){
+        $this->base_url = env('API_BASE_URL');;
+    }
+
     public function loginForm(){
         if(Auth::check()){
             return redirect()->route('home');

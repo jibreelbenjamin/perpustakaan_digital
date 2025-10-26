@@ -157,7 +157,7 @@
             <ul class="p-4 space-y-1 border-y border-gray-200 dark:border-neutral-700">
                 <!-- Link -->
                 <li>
-                <a class="{{ ($page == 'home') ? $classPageActive : $classPageIdle }}" href="/">
+                <a class="{{ ($page == 'home') ? $classPageActive : $classPageIdle }}" href="{{ route('home') }}">
                     <span class="w-5 me-3">
                     <svg class="shrink-0 mt-0.5 size-4 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -171,7 +171,7 @@
 
                 <!-- Link -->
                 <li>
-                <a class="{{ ($page == 'pinjaman') ? $classPageActive : $classPageIdle }}" href="/pinjaman">
+                <a class="{{ ($page == 'pinjaman') ? $classPageActive : $classPageIdle }}" href="{{ route('daftar.pinjaman') }}">
                     <span class="w-5 me-3">
                     <svg class="shrink-0 mt-0.5 size-4 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-stamp-icon lucide-stamp"><path d="M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-6 0c0 2 1 2 1 3.5V13"/><path d="M20 15.5a2.5 2.5 0 0 0-2.5-2.5h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1z"/><path d="M5 22h14"/></svg>
                     </span>
@@ -182,7 +182,7 @@
 
                 <!-- Link -->
                 <li>
-                <a class="{{ ($page == 'buku') ? $classPageActive : $classPageIdle }}" href="/buku">
+                <a class="{{ ($page == 'buku') ? $classPageActive : $classPageIdle }}" href="{{ route('daftar.buku') }}">
                     <span class="w-5 me-3">
                     <svg class="shrink-0 mt-0.5 size-4 mx-auto"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-library-big-icon lucide-library-big"><rect width="8" height="18" x="3" y="3" rx="1"/><path d="M7 3v18"/><path d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z"/></svg>
                     </span>
@@ -193,7 +193,7 @@
 
                 <!-- Link -->
                 <li>
-                <a class="{{ ($page == 'kategori') ? $classPageActive : $classPageIdle }}" href="/kategori">
+                <a class="{{ ($page == 'kategori') ? $classPageActive : $classPageIdle }}" href="{{ route('daftar.kategori') }}">
                     <span class="w-5 me-3">
                     <svg class="shrink-0 mt-0.5 size-4 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-blocks-icon lucide-blocks"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>
                     </span>
@@ -205,7 +205,7 @@
                 @if (Auth::user()->role == 'admin')                
                 <!-- Link -->
                 <li>
-                <a class="{{ ($page == 'user') ? $classPageActive : $classPageIdle }}" href="/user">
+                <a class="{{ ($page == 'user') ? $classPageActive : $classPageIdle }}" href="{{ route('daftar.user') }}">
                     <span class="w-5 me-3">
                     <svg class="shrink-0 mt-0.5 size-4 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-icon lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
                     </span>
@@ -319,7 +319,7 @@
                         <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#hs-scale-animation-modal">
                         Kembali
                         </button>
-                        <a href="/logout" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 focus:outline-hidden focus:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
+                        <a href="{{ route('logout') }}" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 focus:outline-hidden focus:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
                         Keluar
                         </a>
                     </div>
@@ -376,7 +376,7 @@
                                 <label class="block text-sm mb-2 dark:text-white">Buku</label>
                                 <div class="relative">
                                 <select id="id_book_add" data-hs-select='{
-                                    "apiUrl": "https://perpustakaan_digital.test/api/book/select",
+                                    "apiUrl": "{{ env('API_BASE_URL') }}/book/select",
                                     "apiQuery": "",
                                     "apiSearchQueryKey": "search",
                                     "apiDataPart": "data",
@@ -630,7 +630,7 @@ function inputPnjmn(){
     button_add.textContent = "Loading..."
     label_add.textContent = ''
 
-    fetch("https://perpustakaan_digital.test/pinjaman", {
+    fetch("{{ route('daftar.pinjaman.add') }}", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -734,7 +734,7 @@ function updPassword(){
     button_add.textContent = "Loading..."
     label_add.textContent = ''
 
-    fetch("https://perpustakaan_digital.test/user/{{ Auth::user()->id_user }}/update/password", {
+    fetch("{{ route('daftar.user.updatePassword', Auth::user()->id_user) }}", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -786,7 +786,7 @@ function updPassword(){
         } else {
             await new Promise(resolve => setTimeout(resolve, 500));
             document.getElementById('btn-close_updpass').click()
-            location.href = '/logout'
+            location.href = "{{ route('logout') }}"
         }
 
         button_add.disabled = false;

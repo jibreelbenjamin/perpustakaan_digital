@@ -10,7 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class BookController
 {
-    protected $base_url = "https://perpustakaan_digital.test/api";
+    protected $base_url;
+    public function __construct(){
+        $this->base_url = env('API_BASE_URL');;
+    }
+    
     public function index(Request $request){
         try {
             $response = (new Client())->get("{$this->base_url}/book", [
