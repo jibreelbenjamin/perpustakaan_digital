@@ -34,7 +34,8 @@ Route::middleware('user_role:admin,moderator,staff')->group(function () {
         Route::delete('/kategori/delete', [CategoryController::class, 'destroy'])->name('daftar.kategori.delete');
     });
 
-    Route::get('/', [HomeController::class, 'home'])->name('home');
+    Route::get('/', function () { return redirect()->route('home'); });
+    Route::get('/home', [HomeController::class, 'home'])->name('home');
     Route::get('/pinjaman', [BorrowingController::class, 'index'])->name('daftar.pinjaman');
     Route::post('/pinjaman', [BorrowingController::class, 'add'])->name('daftar.pinjaman.add');
     Route::get('/pinjaman/{id}/detail', [BorrowingController::class, 'show'])->name('daftar.pinjaman.detail');

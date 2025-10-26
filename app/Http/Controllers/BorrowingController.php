@@ -60,7 +60,7 @@ class BorrowingController
 
         try {
             $client = new Client();
-            $response = $client->post('https://perpustakaan_digital.test/api/borrow', [
+            $response = $client->post("{$this->base_url}/borrow", [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                     'Accept' => 'application/json',
@@ -186,7 +186,7 @@ class BorrowingController
 
         try {
             $client = new Client();
-            $response = $client->put("https://perpustakaan_digital.test/api/borrow/{$id}", [
+            $response = $client->put("{$this->base_url}/borrow/{$id}", [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                 ],
@@ -235,7 +235,7 @@ class BorrowingController
 
         try {
             $client = new Client();
-            $response = $client->patch("https://perpustakaan_digital.test/api/borrow/{$id}", [
+            $response = $client->patch("{$this->base_url}/borrow/{$id}", [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                 ],

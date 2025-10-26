@@ -54,7 +54,7 @@ class CategoryController
 
         try {
             $client = new Client();
-            $response = $client->post('https://perpustakaan_digital.test/api/category', [
+            $response = $client->post("{$this->base_url}/category", [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                     'Accept' => 'application/json',
@@ -160,7 +160,7 @@ class CategoryController
 
         try {
             $client = new Client();
-            $response = $client->put("https://perpustakaan_digital.test/api/category/{$id}", [
+            $response = $client->put("{$this->base_url}/category/{$id}", [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                 ],

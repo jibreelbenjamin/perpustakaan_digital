@@ -57,7 +57,7 @@ class UserController
 
         try {
             $client = new Client();
-            $response = $client->post('https://perpustakaan_digital.test/api/users', [
+            $response = $client->post("{$this->base_url}/users", [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                     'Accept' => 'application/json',
@@ -161,7 +161,7 @@ class UserController
 
         try {
             $client = new Client();
-            $response = $client->put("https://perpustakaan_digital.test/api/users/{$id}", [
+            $response = $client->put("{$this->base_url}/users/{$id}", [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                 ],
@@ -219,7 +219,7 @@ class UserController
 
         try {
             $client = new Client();
-            $response = $client->put("https://perpustakaan_digital.test/api/users/{$id}/password", [
+            $response = $client->put("{$this->base_url}/users/{$id}/password", [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                 ],

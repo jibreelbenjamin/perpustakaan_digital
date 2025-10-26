@@ -57,7 +57,7 @@ class BookController
 
         try {
             $client = new Client();
-            $response = $client->post('https://perpustakaan_digital.test/api/book', [
+            $response = $client->post("{$this->base_url}/book", [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                     'Accept' => 'application/json',
@@ -170,7 +170,7 @@ class BookController
 
         try {
             $client = new Client();
-            $response = $client->put("https://perpustakaan_digital.test/api/book/{$id}", [
+            $response = $client->put("{$this->base_url}/book/{$id}", [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
                 ],
