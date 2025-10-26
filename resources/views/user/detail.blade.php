@@ -208,7 +208,7 @@
                                             </div>
                                             <label for="hs-radio-moderator" class="ms-3">
                                             <span class="block text-sm font-semibold text-gray-800 dark:text-neutral-300">Moderator</span>
-                                            <span id="hs-radio-moderator-description" class="block text-sm text-gray-600 dark:text-neutral-500">Akses kelola data pada user dan buku.</span>
+                                            <span id="hs-radio-moderator-description" class="block text-sm text-gray-600 dark:text-neutral-500">Akses kelola data pada kategori dan buku.</span>
                                             </label>
                                         </div>
 

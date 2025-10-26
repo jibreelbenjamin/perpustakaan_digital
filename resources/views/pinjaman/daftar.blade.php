@@ -140,10 +140,18 @@
 <script>
 let offset = 0;
 const limit = 15;
+const params = new URLSearchParams(window.location.search);
+const filterParam = params.get('filter');
 let isLoading = false;
 let allDataLoaded = false;
 let searchQuery = '';
 let debounceTimer = null;
+
+if (filterParam) {
+    document.getElementById('search-input').value = filterParam;
+    searchQuery = document.getElementById('search-input').value;
+    loadMoreData();
+}
 
 function loadMoreData(reset = false) {
     if (reset) {

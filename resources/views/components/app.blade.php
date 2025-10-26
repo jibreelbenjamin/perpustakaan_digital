@@ -51,14 +51,10 @@
             <!-- Account Dropdown -->
             <div class="hs-dropdown-menu hs-dropdown-open:opacity-100 w-60 transition-[opacity,margin] duration opacity-0 hidden z-20 bg-white rounded-xl shadow-xl dark:bg-neutral-800" role="menu" aria-orientation="vertical" aria-labelledby="hs-pro-pnnmd">
                 <div class="p-1">
-                <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" href="#">
-                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-pen-icon lucide-user-pen"><path d="M11.5 15H7a4 4 0 0 0-4 4v2"/><path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><circle cx="10" cy="7" r="4"/></svg>
-                    Update profil
-                </a>
-                <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" href="#">
+                <button class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-form-upd-pass-modal" data-hs-overlay="#hs-form-upd-pass-modal">
                     <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key-round-icon lucide-key-round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>
                     Ubah password
-                </a>
+                </button>
                 <button class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-scale-animation-modal" data-hs-overlay="#hs-scale-animation-modal">
                     <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -119,14 +115,10 @@
                 <!-- Account Dropdown -->
                 <div class="hs-dropdown-menu hs-dropdown-open:opacity-100 w-60 transition-[opacity,margin] duration opacity-0 hidden z-20 bg-white rounded-xl shadow-xl dark:bg-neutral-800" role="menu" aria-orientation="vertical" aria-labelledby="hs-pro-pnnmd">
                 <div class="p-1">
-                    <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" href="#">
-                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-pen-icon lucide-user-pen"><path d="M11.5 15H7a4 4 0 0 0-4 4v2"/><path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><circle cx="10" cy="7" r="4"/></svg>
-                    Update profil
-                    </a>
-                    <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" href="#">
+                    <button class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-form-upd-pass-modal" data-hs-overlay="#hs-form-upd-pass-modal">
                     <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key-round-icon lucide-key-round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>
                     Ubah password
-                    </a>
+                    </button>
                     <button class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-scale-animation-modal" data-hs-overlay="#hs-scale-animation-modal">
                     <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -303,7 +295,6 @@
         <!-- End Sidebar Close -->
         </div>
     </aside>
-
 
     <main id="content" class="lg:ps-65">
         {{ $slot }}
@@ -505,6 +496,110 @@
     </div>
     <!-- End Form Pinjaman Modal -->
 
+    <!-- Form Update Password Modal -->
+    <div id="hs-form-upd-pass-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-form-input-pnjmn-modal-label">
+        <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
+            <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                <div class="p-7">
+                    <div class="flex justify-between">
+                        <h3 id="hs-form-upd-pass-modal-label" class="font-bold text-gray-800 dark:text-white">
+                        Update password akun
+                        <p class="text-xs font-medium text-gray-500">Memperbarui kunci masuk akun anda.</p>
+                        </h3>
+                    </div>
+                    <div class="py-5 overflow-y-auto">
+                        <div class="grid gap-y-4">
+                            <!-- Form Group -->
+                            <div>
+                                <label for="password_new" class="block text-sm mb-2 dark:text-white">Password baru (min.6)</label>
+                                <div class="relative">
+                                <input type="password" id="password_new" placeholder="Buat password baru" class="apperance-none py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-amber-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500">
+                                <button type="button" data-hs-toggle-password='{
+                                    "target": "#password_new"
+                                }' class="absolute inset-y-0 end-0 flex items-center z-20 px-5 cursor-pointer text-gray-400 rounded-e-md focus:outline-hidden focus:text-amber-600 dark:text-neutral-600 dark:focus:text-amber-500">
+                                <svg class="shrink-0 size-3.5" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path class="hs-password-active:hidden" d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                                    <path class="hs-password-active:hidden" d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                                    <path class="hs-password-active:hidden" d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                                    <line class="hs-password-active:hidden" x1="2" x2="22" y1="2" y2="22"></line>
+                                    <path class="hidden hs-password-active:block" d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                    <circle class="hidden hs-password-active:block" cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                </button>
+                                </div>
+                                <p id="password_new_label" class="hidden flex items-center gap-x-1 ml-1 mt-1 text-xs text-red-500 dark:text-red-600">
+                                    <svg class="shrink-0 size-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                                    <span><!-- --></span>
+                                </p>
+                            </div>
+                            <!-- End Form Group -->
+
+                            <!-- Form Group -->
+                            <div>
+                                <label for="password_confirm" class="block text-sm mb-2 dark:text-white">Konfirmasi password baru</label>
+                                <div class="relative">
+                                <input type="text" id="password_confirm" placeholder="Ketik ulang password baru" class="apperance-none py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-amber-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500">
+                                <button type="button" data-hs-toggle-password='{
+                                    "target": "#password_confirm"
+                                }' class="absolute inset-y-0 end-0 flex items-center z-20 px-5 cursor-pointer text-gray-400 rounded-e-md focus:outline-hidden focus:text-amber-600 dark:text-neutral-600 dark:focus:text-amber-500">
+                                <svg class="shrink-0 size-3.5" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path class="hs-password-active:hidden" d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                                    <path class="hs-password-active:hidden" d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                                    <path class="hs-password-active:hidden" d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                                    <line class="hs-password-active:hidden" x1="2" x2="22" y1="2" y2="22"></line>
+                                    <path class="hidden hs-password-active:block" d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                    <circle class="hidden hs-password-active:block" cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                </button>
+                                </div>
+                                <p id="password_confirm_label" class="hidden flex items-center gap-x-1 ml-1 mt-1 text-xs text-red-500 dark:text-red-600">
+                                    <svg class="shrink-0 size-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                                    <span><!-- --></span>
+                                </p>
+                            </div>
+                            <!-- End Form Group -->
+
+                            <!-- Form Group -->
+                            <div>
+                                <label for="password_old" class="block text-sm mb-2 dark:text-white">Password lama</label>
+                                <div class="relative">
+                                <input type="text" id="password_old" placeholder="Masukan password lama" class="apperance-none py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-amber-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500">
+                                <button type="button" data-hs-toggle-password='{
+                                    "target": "#password_old"
+                                }' class="absolute inset-y-0 end-0 flex items-center z-20 px-5 cursor-pointer text-gray-400 rounded-e-md focus:outline-hidden focus:text-amber-600 dark:text-neutral-600 dark:focus:text-amber-500">
+                                <svg class="shrink-0 size-3.5" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path class="hs-password-active:hidden" d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                                    <path class="hs-password-active:hidden" d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                                    <path class="hs-password-active:hidden" d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                                    <line class="hs-password-active:hidden" x1="2" x2="22" y1="2" y2="22"></line>
+                                    <path class="hidden hs-password-active:block" d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                    <circle class="hidden hs-password-active:block" cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                </button>
+                                </div>
+                                <p id="password_old_label" class="hidden flex items-center gap-x-1 ml-1 mt-1 text-xs text-red-500 dark:text-red-600">
+                                    <svg class="shrink-0 size-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                                    <span><!-- --></span>
+                                </p>
+                            </div>
+                            <!-- End Form Group -->
+                            <p id="error_updpass" class="text-sm text-red-500"></p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center gap-x-2  ">
+                        <button id="btn-close_updpass" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#hs-form-upd-pass-modal">
+                        Tutup
+                        </button>
+                        <button id="btn-send_updpass" onclick="updPassword()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-amber-600 text-white hover:bg-amber-700 focus:outline-hidden focus:bg-amber-700 disabled:opacity-50 disabled:pointer-events-none">
+                        Update password
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Form Update Password Modal -->
+
     @if (session('successToast'))
     <x-toast type='normal' status='success'>
     {{ session('successToast') }}
@@ -611,11 +706,99 @@ function inputPnjmn(){
 
         button_add.disabled = false;
         button_add.textContent = "Input pinjaman";
+        if(data.errors){
+            label_add.textContent = data.message
+        }
     })
     .catch(error => {
         console.error('Error:', error);
         button_add.disabled = false;
         button_add.textContent = "Input pinjaman";
+        label_add.textContent = error.message || 'Terjadi kesalahan koneksi.';
+    });
+}
+
+function updPassword(){
+    const button_add = document.getElementById('btn-send_updpass')
+    const label_add = document.getElementById('error_updpass')
+    var password_new = document.getElementById('password_new')
+    var password_confirm = document.getElementById('password_confirm')
+    var password_old = document.getElementById('password_old')
+
+    var password_new_label = document.getElementById('password_new_label')
+    var password_confirm_label = document.getElementById('password_confirm_label')
+    var password_old_label = document.getElementById('password_old_label')
+
+
+    button_add.disabled = true
+    button_add.textContent = "Loading..."
+    label_add.textContent = ''
+
+    fetch("https://perpustakaan_digital.test/user/{{ Auth::user()->id_user }}/update/password", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            new_password: password_new.value,
+            new_password_confirmation: password_confirm.value,
+            current_password: password_old.value,
+        })
+    })
+    .then(async (response) => {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Gagal mengirim data ke server');
+        }
+
+        [password_new, password_confirm, password_old].forEach(el => {
+            el.classList.replace('border-red-500','border-gray-200')
+            el.classList.replace('dark:border-red-600','dark:border-neutral-800')
+        });
+        [password_new_label, password_confirm_label, password_old_label].forEach(el => {
+            el.classList.add('hidden')
+        });
+
+        if (data.status === false) {
+            if (data.errors && typeof data.errors === 'object') {
+                if(data.errors.new_password){
+                    password_new.classList.replace('border-gray-200','border-red-500')
+                    password_new.classList.replace('dark:border-neutral-800','dark:border-red-600')
+                    password_new_label.classList.remove('hidden')
+                    password_new_label.querySelector('span').textContent = data.errors.new_password
+                }
+                if(data.errors.new_password){
+                    password_confirm.classList.replace('border-gray-200','border-red-500')
+                    password_confirm.classList.replace('dark:border-neutral-800','dark:border-red-600')
+                    password_confirm_label.classList.remove('hidden')
+                    password_confirm_label.querySelector('span').textContent = data.errors.new_password
+                }
+                if(data.errors.current_password){
+                    password_old.classList.replace('border-gray-200','border-red-500')
+                    password_old.classList.replace('dark:border-neutral-800','dark:border-red-600')
+                    password_old_label.classList.remove('hidden')
+                    password_old_label.querySelector('span').textContent = data.errors.current_password
+                }
+            }
+        } else {
+            await new Promise(resolve => setTimeout(resolve, 500));
+            document.getElementById('btn-close_updpass').click()
+            location.href = '/logout'
+        }
+
+        button_add.disabled = false;
+        button_add.textContent = "Update password";
+        if(data.errors){
+            label_add.textContent = data.message
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        button_add.disabled = false;
+        button_add.textContent = "Update password";
         label_add.textContent = error.message || 'Terjadi kesalahan koneksi.';
     });
 }

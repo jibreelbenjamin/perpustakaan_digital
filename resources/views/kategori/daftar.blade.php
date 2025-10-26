@@ -368,7 +368,9 @@ function input(){
 
         button.disabled = false;
         button.textContent = "Tambah kategori";
-        label.textContent = data.error || '';
+        if(data.errors){
+            label.textContent = data.message
+        }
     })
     .catch(error => {
         console.error('Error:', error);

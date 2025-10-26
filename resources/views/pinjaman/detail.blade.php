@@ -887,6 +887,9 @@ function input(){
 
         button.disabled = false;
         button.textContent = "Update pinjaman";
+        if(data.errors){
+            label.textContent = data.message
+        }
     })
     .catch(error => {
         console.error('Error:', error);

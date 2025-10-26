@@ -151,7 +151,6 @@ class UserController
         $data = [
             'name' => $request->name,
             'username' => $request->username,
-            'password' => $request->password,
             'role' => $request->role,
             'phone' => $request->phone,
         ];
@@ -178,6 +177,64 @@ class UserController
             return response()->json([
                 'status' => true,
                 'message' => 'Data berhasil diperbarui',
+                'data' => $body
+            ]);
+
+        } catch (ClientException $e) {
+            $responseBody = json_decode($e->getResponse()->getBody(), true);
+            return response()->json([
+                'status' => false,
+                'message' => $responseBody['message'] ?? 'Terjadi kesalahan dari API',
+                'errors' => $responseBody['errors'] ?? [],
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Terjadi kesalahan. Coba lagi',
+                'error_detail' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function updatePassword(Request $request, $id){
+        $token = session('token') ?? null;
+
+        $data = [
+            'current_password' => $request->current_password,
+            'new_password' => $request->new_password,
+            'new_password_confirmation' => $request->new_password_confirmation,
+        ];
+
+        if(Auth::user()->id_user != $id){
+            return response()->json([
+                'status' => false,
+                'message' => 'Akun tidak sesuai',
+                'errors' => [],
+            ]);
+        }
+
+        try {
+            $client = new Client();
+            $response = $client->put("https://perpustakaan_digital.test/api/users/{$id}/password", [
+                'headers' => [
+                    'Authorization' => "Bearer {$token}",
+                ],
+                'form_params' => $data
+            ]);
+
+            $body = json_decode($response->getBody(), true);
+
+            if (isset($body['status']) && $body['status'] === false) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $body['message'] ?? 'Validasi gagal',
+                    'errors' => $body['errors'] ?? [],
+                ]);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Password berhasil diperbarui',
                 'data' => $body
             ]);
 

@@ -161,46 +161,6 @@ class UserController
         }
     }
 
-    public function updateRole(Request $request, $id){
-        try {
-            $data = User::where('id_user', $id)->firstOrFail();
-
-            $validated = $request->validate([
-                'role' => 'required|in:admin,moderator,staff',
-            ], [
-                'role.required' => 'Role wajib diisi',
-                'role.in' => 'Role tidak valid',
-            ]);
-
-            $data->update([
-                'role' => $validated['role'],
-            ]);
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Data '.$this->data_title.' berhasil diupdate',
-                'data' => $data
-            ], 200);
-
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data '.$this->data_title.' tidak ditemukan'
-            ], 404);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validasi '.$this->data_title.' gagal',
-                'errors' => $e->errors()
-            ], 422);
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
-            ], 500);
-        }
-    }
-
     public function updatePassword(Request $request, $id){
         try {
             $data = User::where('id_user', $id)->firstOrFail();

@@ -57,14 +57,14 @@
                 </dd>
 
                 <dt class="sm:py-1 text-sm text-gray-500 dark:text-neutral-500">
-                Author:
+                Deskripsi:
                 </dt>
                 <dd class="pb-3 sm:py-1 min-h-8 text-sm text-gray-800 dark:text-neutral-200">
                 {{ $kategori['description'] }}
                 </dd>
 
                 <dt class="sm:py-1 text-sm text-gray-500 dark:text-neutral-500">
-                Jumlah kategori:
+                Jumlah pemakaian kategori:
                 </dt>
                 <dd class="pb-3 sm:py-1 min-h-8 text-sm text-gray-800 dark:text-neutral-200">
                 {{ ($kategori['total_buku'] > 0) ? $kategori['total_buku'].' Buku' : 'Belum ada buku menggunakan kategori ini' }}
@@ -254,7 +254,9 @@ function input(){
 
         button.disabled = false;
         button.textContent = "Update kategori";
-        label.textContent = data.error || '';
+        if(data.errors){
+            label.textContent = data.message
+        }
     })
     .catch(error => {
         console.error('Error:', error);

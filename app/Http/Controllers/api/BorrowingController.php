@@ -135,7 +135,7 @@ class BorrowingController
                 'status' => 'required|in:dipinjam,dikembalikan,hilang',
             ], [
                 'name.required' => 'Nama wajib diisi',
-                'contact.required' => 'Nama wajib diisi',
+                'contact.required' => 'Kontak wajib diisi',
 
                 'petugas.required' => 'Petugas wajib diisi',
                 'petugas.exists' => 'Petugas tidak dikenal',
