@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin'
         ]);
         User::factory(4102)->create();
-        Category::factory(89)->create();
-        Book::factory(1392)->create();
-        Borrowing::factory(32750)->create();
+        Category::factory(125)->create();
+        Book::factory(3692)->create();
+        Borrowing::factory(62750)->create();
     }
 }

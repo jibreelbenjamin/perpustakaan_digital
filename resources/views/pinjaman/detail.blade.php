@@ -5,7 +5,7 @@
     <div class="max-w-4xl mx-auto py-5 sm:py-10 px-5 md:px-8 2xl:px-5">
       <!-- Button -->
       <div class="mb-5">
-        <a class="pe-3 group inline-flex items-center gap-x-2 text-start text-sm text-gray-800 rounded-full hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" href="/pinjaman">
+        <a class="pe-3 group inline-flex items-center gap-x-2 text-start text-sm text-gray-800 rounded-full hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" href="{{ route('home') }}">
           <span class="shrink-0 size-9 inline-flex justify-center items-center bg-gray-100 rounded-full group-hover:bg-gray-200 group-focus:bg-gray-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700 dark:group-focus:bg-neutral-700">
             <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="m12 19-7-7 7-7" />
@@ -825,6 +825,10 @@
                             Update pinjaman
                             </button>
                         </div>
+                        <p class="mt-4 flex gap-x-1 text-xs font-medium text-gray-500">
+                          <svg class="shrink-0 size-3 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                          Memperbarui informasi pinjaman ini akan mengganti tanggung jawab petugas kepada anda.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -858,7 +862,7 @@ function input(){
     button.textContent = "Loading..."
     label.textContent = ''
 
-    fetch("https://perpustakaan_digital.test/pinjaman/{{ $pinjaman['id_borrowing'] }}/update", {
+    fetch("{{ route('daftar.pinjaman.update', $pinjaman['id_borrowing']) }}", {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -874,7 +878,6 @@ function input(){
         })
     })
     .then(async (response) => {
-        await new Promise(resolve => setTimeout(resolve, 500));
         const data = await response.json();
 
         if (!response.ok) {

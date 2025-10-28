@@ -328,7 +328,6 @@ function input(){
         })
     })
     .then(async (response) => {
-        await new Promise(resolve => setTimeout(resolve, 500));
         const data = await response.json();
 
         if (!response.ok) {

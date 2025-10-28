@@ -399,7 +399,6 @@ function input(){
         })
     })
     .then(async (response) => {
-        await new Promise(resolve => setTimeout(resolve, 500));
         const data = await response.json();
 
         if (!response.ok) {
@@ -456,7 +455,7 @@ function input(){
         button.disabled = false;
         button.textContent = "Tambah buku";
         if(data.errors){
-            label_add.textContent = data.message
+            label.textContent = data.message
         }
     })
     .catch(error => {

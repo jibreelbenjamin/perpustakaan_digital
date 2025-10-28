@@ -20,13 +20,18 @@ class AuthController
             ], 401);
         }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $tokenResult = $user->createToken('auth_token');
+        $token = $tokenResult->plainTextToken;
+
+        $tokenResult->accessToken->expires_at = now()->addDays(7);
+        $tokenResult->accessToken->save();
 
         return response()->json([
             'status' => true,
             'message' => 'Login berhasil',
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'expires_at' => '7 Day left',
             'id_user' => $user->id_user,
             'name' => $user->name,
             'username' => $user->username,

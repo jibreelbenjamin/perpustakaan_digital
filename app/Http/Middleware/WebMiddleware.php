@@ -17,6 +17,21 @@ class WebMiddleware
             ]);
         }
 
+        if (session('token')) {
+            $token = session('token');
+
+            $personalToken = \Laravel\Sanctum\PersonalAccessToken::findToken($token);
+
+            if (!$personalToken || ($personalToken->expires_at && $personalToken->expires_at->isPast())) {
+                Auth::logout();
+                session()->forget('token');
+
+                return redirect()->route('login')->withErrors([
+                    'message' => 'Sesi kadaluarsa. Silakan login ulang.'
+                ]);
+            }
+        }
+
         $userRole = Auth::user()->role;
 
         if (!in_array($userRole, $roles)) {
