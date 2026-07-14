@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\AccessTokenController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\CategoryController;
@@ -18,6 +19,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/users', [UserController::class, 'store']);
         Route::put('/users/{id}', [UserController::class, 'update']);
         Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+        Route::get('/access_token', [AccessTokenController::class, 'index']);
+        Route::get('/access_token/{id}', [AccessTokenController::class, 'show']);
+        Route::patch('/access_token/{id}', [AccessTokenController::class, 'revoke']);
+        Route::delete('/access_token/{id}', [AccessTokenController::class, 'destroy']);
     });   
     
     Route::middleware('role:admin,moderator')->group(function () {        

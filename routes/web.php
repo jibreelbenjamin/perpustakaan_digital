@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessTokenController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookController;
@@ -22,6 +23,11 @@ Route::middleware('user_role:admin,moderator,staff')->group(function () {
         Route::put('/user/{id}/update', [UserController::class, 'update'])->name('daftar.user.update');
         Route::delete('/user/delete', [UserController::class, 'destroy'])->name('daftar.user.delete');
         Route::get('/user/load', [UserController::class, 'loadData'])->name('user.load');
+        
+        Route::get('/akses_token', [AccessTokenController::class, 'index'])->name('daftar.akses_token');
+        Route::get('/akses_token/{id}/detail', [AccessTokenController::class, 'show'])->name('daftar.akses_token.detail');
+        Route::patch('/akses_token/revoke', [AccessTokenController::class, 'revoke'])->name('daftar.akses_token.revoke');
+        Route::get('/akses_token/load', [AccessTokenController::class, 'loadData'])->name('akses_token.load');
     });
 
     Route::middleware('user_role:admin,moderator')->group(function () {
