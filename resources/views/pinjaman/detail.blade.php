@@ -711,7 +711,7 @@
                                     <label class="block text-sm mb-2 dark:text-white">Buku</label>
                                     <div class="relative">
                                     <select id="id_book" data-hs-select='{
-                                        "apiUrl": "https://perpustakaan_digital.test/api/book/select",
+                                        "apiUrl": "{{ env('API_BASE_URL') }}/book/select",
                                         "apiQuery": "",
                                         "apiSearchQueryKey": "search",
                                         "apiDataPart": "data",
