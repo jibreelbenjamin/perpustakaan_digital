@@ -11,7 +11,7 @@ class AuthController
 {
     protected $base_url;
     public function __construct(){
-        $this->base_url = env('API_BASE_URL');;
+        $this->base_url = env('API_BASE_URL');
     }
 
     public function loginForm(){
@@ -23,13 +23,29 @@ class AuthController
     }
 
     public function login(Request $request){
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required'
-        ], [
-            'username.required' => 'Username wajib diisi',
-            'password.required' => 'Password wajib diisi',
-        ]);
+        // Decode base64 demo credentials if present
+        $isDemo = $request->has('demo_username') || $request->has('demo_password');
+
+        if ($isDemo) {
+            $request->validate([
+                'demo_username' => 'required',
+                'demo_password' => 'required',
+            ]);
+
+            $username = base64_decode($request->input('demo_username'));
+            $password = base64_decode($request->input('demo_password'));
+        } else {
+            $request->validate([
+                'username' => 'required',
+                'password' => 'required',
+            ], [
+                'username.required' => 'Username wajib diisi',
+                'password.required' => 'Password wajib diisi',
+            ]);
+
+            $username = $request->input('username');
+            $password = $request->input('password');
+        }
 
         $client = new Client();
         $url = "{$this->base_url}/login";
@@ -37,8 +53,8 @@ class AuthController
         try {
             $response = $client->request('POST', $url, [
                 'form_params' => [
-                    'username' => $request->username,
-                    'password' => $request->password,
+                    'username' => $username,
+                    'password' => $password,
                 ],
                 'http_errors' => false
             ]);
@@ -54,7 +70,7 @@ class AuthController
                         'name' => $data['name'],
                         'username' => $data['username'],
                         'role' => $data['role'],
-                        'password' => bcrypt($request->password),
+                        'password' => bcrypt($password),
                     ]);
                 }
 

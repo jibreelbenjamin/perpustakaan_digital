@@ -21,7 +21,19 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123'),
             'role' => 'admin'
         ]);
-        User::factory(4102)->create();
+        User::factory()->create([
+            'name' => 'Moderator Demo',
+            'username' => 'moderator',
+            'password' => bcrypt('moderator'),
+            'role' => 'moderator'
+        ]);
+        User::factory()->create([
+            'name' => 'Staff Demo',
+            'username' => 'staff',
+            'password' => bcrypt('staff'),
+            'role' => 'staff'
+        ]);
+        User::factory(4099)->create();
         Category::factory(125)->create();
         Book::factory(3692)->create();
         Borrowing::factory(62750)->create();
