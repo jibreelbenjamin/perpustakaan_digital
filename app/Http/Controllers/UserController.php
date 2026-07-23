@@ -275,18 +275,33 @@ class UserController
             $pinjaman = data_get(json_decode($responses['users']->getBody(), true), 'data', null);
 
             if (!$pinjaman) {
+                if ($request->expectsJson()) {
+                    return response()->json(['status' => false, 'message' => 'Petugas pinjaman tidak ditemukan']);
+                }
                 return back()->withErrors(['message' => 'Petugas pinjaman tidak ditemukan']);
             }
             
             if($client->request('DELETE', $urlUser, ['headers' => $headers])){
+                if ($request->expectsJson()) {
+                    return response()->json(['status' => true, 'message' => 'Petugas berhasil dihapus']);
+                }
                 return redirect()->route('daftar.user')->with('successToast', 'Petugas berhasil dihapus');
             } else {
+                if ($request->expectsJson()) {
+                    return response()->json(['status' => false, 'message' => 'Terjadi kesalahan saat menghapus']);
+                }
                 return back()->withErrors(['message' => 'Terjadi kesalahan saat menghapus']);
             }
 
         } catch (ClientException $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['status' => false, 'message' => 'Gagal memuat data: ' . $e->getMessage()]);
+            }
             return back()->withErrors(['message' => 'Gagal memuat data: ' . $e->getMessage()]);
         } catch (\Exception $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['status' => false, 'message' => 'Terjadi kesalahan:' . $e->getMessage()]);
+            }
             return back()->withErrors(['message' => 'Terjadi kesalahan:' . $e->getMessage()]);
         }
     }

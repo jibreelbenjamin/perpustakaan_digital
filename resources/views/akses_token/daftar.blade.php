@@ -132,7 +132,7 @@
 
 <script>
 let offset = 0;
-const limit = 15;
+const limit = 100;
 let isLoading = false;
 let allDataLoaded = false;
 let searchQuery = '';
@@ -254,8 +254,6 @@ function input(){
     var publisher_label = document.getElementById('publisher_label')
     var year_label = document.getElementById('year_label')
 
-    button.disabled = true
-    button.textContent = "Loading..."
     label.textContent = ''
 
     fetch("{{ route('daftar.buku.add') }}", {
@@ -326,16 +324,12 @@ function input(){
             location.reload();
         }
 
-        button.disabled = false;
-        button.textContent = "Tambah buku";
         if(data.errors){
             label.textContent = data.message
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        button.disabled = false;
-        button.textContent = "Tambah buku";
         label.textContent = error.message || 'Terjadi kesalahan koneksi.';
     });
 }

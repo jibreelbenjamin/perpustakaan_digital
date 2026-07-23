@@ -312,7 +312,7 @@
     </main>
 
     <!-- Logout Modal -->
-    <div id="hs-scale-animation-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-scale-animation-modal-label">
+    <div id="hs-scale-animation-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none [--overlay-backdrop:static]" role="dialog" tabindex="-1" aria-labelledby="hs-scale-animation-modal-label">
         <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
             <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
                 <div class="p-7">
@@ -341,10 +341,10 @@
     <!-- End Logout Modal -->
 
     <!-- Form Pinjaman Modal -->
-    <div id="hs-form-input-pnjmn-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-form-input-pnjmn-modal-label">
+    <div id="hs-form-input-pnjmn-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none [--overlay-backdrop:static]" role="dialog" tabindex="-1" aria-labelledby="hs-form-input-pnjmn-modal-label">
         <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
             <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                <div class="p-7">
+                <div class="p-7 relative">
                     <div class="flex justify-between">
                         <h3 id="hs-form-input-pnjmn-modal-label" class="font-bold text-gray-800 dark:text-white">
                         Tambah data pinjaman buku
@@ -501,6 +501,14 @@
                         Input pinjaman
                         </button>
                     </div>
+                    <!-- Loading Overlay -->
+                    <div id="loading-overlay_add" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/80 rounded-xl dark:bg-neutral-800/80">
+                        <div class="flex flex-col items-center gap-y-3">
+                            <svg class="shrink-0 size-8 text-amber-600 animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                            <p class="text-sm font-medium text-gray-700 dark:text-neutral-300">Memproses data...</p>
+                        </div>
+                    </div>
+                    <!-- End Loading Overlay -->
                 </div>
             </div>
         </div>
@@ -508,10 +516,10 @@
     <!-- End Form Pinjaman Modal -->
 
     <!-- Form Update Password Modal -->
-    <div id="hs-form-upd-pass-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-form-input-pnjmn-modal-label">
+    <div id="hs-form-upd-pass-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none [--overlay-backdrop:static]" role="dialog" tabindex="-1" aria-labelledby="hs-form-input-pnjmn-modal-label">
         <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
             <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                <div class="p-7">
+                <div class="p-7 relative">
                     <div class="flex justify-between">
                         <h3 id="hs-form-upd-pass-modal-label" class="font-bold text-gray-800 dark:text-white">
                         Update password akun
@@ -605,6 +613,14 @@
                         Update password
                         </button>
                     </div>
+                    <!-- Loading Overlay -->
+                    <div id="loading-overlay_updpass" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/80 rounded-xl dark:bg-neutral-800/80">
+                        <div class="flex flex-col items-center gap-y-3">
+                            <svg class="shrink-0 size-8 text-amber-600 animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                            <p class="text-sm font-medium text-gray-700 dark:text-neutral-300">Memproses data...</p>
+                        </div>
+                    </div>
+                    <!-- End Loading Overlay -->
                 </div>
             </div>
         </div>
@@ -616,12 +632,57 @@
     {{ session('successToast') }}
     </x-toast>
     @endif
+
+    @if (session('errorToast'))
+    <x-toast type='normal' status='error'>
+    {{ session('errorToast') }}
+    </x-toast>
+    @endif
+
     <x-toast type='errors-has'></x-toast>
+
+    <div id="session-toast-container"></div>
+
+    <script>
+    (function() {
+        const msg = sessionStorage.getItem('flash_toast');
+        if (msg) {
+            sessionStorage.removeItem('flash_toast');
+            const container = document.getElementById('session-toast-container');
+            const colors = msg.startsWith('error:') 
+                ? ['text-red-500', 'M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z']
+                : ['text-teal-500', 'M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'];
+            const text = msg.startsWith('error:') ? msg.substring(6) : msg;
+            container.innerHTML = `
+                <div class="z-50 fixed top-5 left-1/2 -translate-x-1/2">
+                    <div class="tIn max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-neutral-800 dark:border-neutral-700" role="alert">
+                        <div class="flex p-4">
+                            <div class="shrink-0">
+                                <svg class="shrink-0 size-4 ${colors[0]} mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="${colors[1]}"/>
+                                </svg>
+                            </div>
+                            <div class="ms-3">
+                                <p class="text-sm text-gray-700 dark:text-neutral-400">${text}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+        }
+    })();
+    </script>
 </x-head>
 <script>
+function flashAndReload(message, isError = false) {
+    sessionStorage.setItem('flash_toast', (isError ? 'error:' : '') + message);
+    location.reload();
+}
 function inputPnjmn(){
     const button_add = document.getElementById('btn-send_add')
     const label_add = document.getElementById('error_add')
+    const loadingOverlay = document.getElementById('loading-overlay_add')
+    const formModal = document.querySelector('#hs-form-input-pnjmn-modal .p-7')
+    const allInputs = formModal.querySelectorAll('input, select, button, [data-hs-select]')
     var name_add = document.getElementById('name_add')
     var contact_add = document.getElementById('contact_add')
     var id_book_add = document.getElementById('id_book_add')
@@ -637,9 +698,8 @@ function inputPnjmn(){
     var return_date_label_add = document.getElementById('return_date_label_add')
     var status_label_add = document.getElementById('status_label_add')
 
-    button_add.disabled = true
-    button_add.textContent = "Loading..."
     label_add.textContent = ''
+    loadingOverlay.classList.remove('hidden')
 
     fetch("{{ route('daftar.pinjaman.add') }}", {
         method: 'POST',
@@ -672,6 +732,8 @@ function inputPnjmn(){
         });
 
         if (data.status === false) {
+            loadingOverlay.classList.add('hidden')
+            allInputs.forEach(el => { if (el !== button_add) el.disabled = false })
             if (data.errors && typeof data.errors === 'object') {
                 if(data.errors.name){
                     name_add.classList.replace('border-gray-200','border-red-500')
@@ -709,21 +771,13 @@ function inputPnjmn(){
                 }
             }
         } else {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            document.getElementById('btn-close_add').click()
-            location.reload();
-        }
-
-        button_add.disabled = false;
-        button_add.textContent = "Input pinjaman";
-        if(data.errors){
-            label_add.textContent = data.message
+            flashAndReload(data.message || 'Data pinjaman berhasil disimpan');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        button_add.disabled = false;
-        button_add.textContent = "Input pinjaman";
+        loadingOverlay.classList.add('hidden')
+        allInputs.forEach(el => { if (el !== button_add) el.disabled = false })
         label_add.textContent = error.message || 'Terjadi kesalahan koneksi.';
     });
 }
@@ -731,6 +785,9 @@ function inputPnjmn(){
 function updPassword(){
     const button_add = document.getElementById('btn-send_updpass')
     const label_add = document.getElementById('error_updpass')
+    const loadingOverlay = document.getElementById('loading-overlay_updpass')
+    const formModal = document.querySelector('#hs-form-upd-pass-modal .p-7')
+    const allInputs = formModal.querySelectorAll('input, button')
     var password_new = document.getElementById('password_new')
     var password_confirm = document.getElementById('password_confirm')
     var password_old = document.getElementById('password_old')
@@ -740,9 +797,8 @@ function updPassword(){
     var password_old_label = document.getElementById('password_old_label')
 
 
-    button_add.disabled = true
-    button_add.textContent = "Loading..."
     label_add.textContent = ''
+    loadingOverlay.classList.remove('hidden')
 
     fetch("{{ route('daftar.user.updatePassword', Auth::user()->id_user) }}", {
         method: 'POST',
@@ -772,6 +828,8 @@ function updPassword(){
         });
 
         if (data.status === false) {
+            loadingOverlay.classList.add('hidden')
+            allInputs.forEach(el => { if (el !== button_add) el.disabled = false })
             if (data.errors && typeof data.errors === 'object') {
                 if(data.errors.new_password){
                     password_new.classList.replace('border-gray-200','border-red-500')
@@ -793,21 +851,17 @@ function updPassword(){
                 }
             }
         } else {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            document.getElementById('btn-close_updpass').click()
             location.href = "{{ route('logout') }}"
         }
 
-        button_add.disabled = false;
-        button_add.textContent = "Update password";
         if(data.errors){
             label_add.textContent = data.message
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        button_add.disabled = false;
-        button_add.textContent = "Update password";
+        loadingOverlay.classList.add('hidden')
+        allInputs.forEach(el => { if (el !== button_add) el.disabled = false })
         label_add.textContent = error.message || 'Terjadi kesalahan koneksi.';
     });
 }

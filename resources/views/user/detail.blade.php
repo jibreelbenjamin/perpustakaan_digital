@@ -158,10 +158,10 @@
 
         @if (Auth::user()->role != 'staff')
         <!-- Confirm Modal -->
-        <div id="hs-scale-confirm-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-scale-confirm-modal-label">
+        <div id="hs-scale-confirm-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none [--overlay-backdrop:static]" role="dialog" tabindex="-1" aria-labelledby="hs-scale-confirm-modal-label">
             <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
                 <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                    <div class="p-7">
+                    <div class="p-7 relative">
                         <div class="flex justify-between items-center  ">
                             <h3 id="hs-scale-confirm-modal-label" class="font-bold text-gray-800 dark:text-white">
                             Hapus petugas?
@@ -176,15 +176,18 @@
                             <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#hs-scale-confirm-modal">
                             Kembali
                             </button>
-                            <form method="post" action="{{ route('daftar.user.delete') }}">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="id" value="{{ $user['id_user'] }}">
-                                <button class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 focus:outline-hidden focus:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
-                                Hapus
-                                </button>
-                            </form>
+                            <button id="btn-delete-user" onclick="deleteUser()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 focus:outline-hidden focus:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
+                            Hapus
+                            </button>
                         </div>
+                        <!-- Loading Overlay -->
+                        <div id="loading-overlay_delete_user" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/80 rounded-xl dark:bg-neutral-800/80">
+                            <div class="flex flex-col items-center gap-y-3">
+                                <svg class="shrink-0 size-8 text-red-600 animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                                <p class="text-sm font-medium text-gray-700 dark:text-neutral-300">Menghapus data...</p>
+                            </div>
+                        </div>
+                        <!-- End Loading Overlay -->
                     </div>
                 </div>
             </div>
@@ -192,10 +195,10 @@
         <!-- End Confirm Modal -->
     
         <!-- Form Update Petugas Modal -->
-        <div id="hs-form-update-user-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-form-update-user-modal-label">
+        <div id="hs-form-update-user-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none [--overlay-backdrop:static]" role="dialog" tabindex="-1" aria-labelledby="hs-form-update-user-modal-label">
             <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
                 <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                    <div class="p-7">
+                    <div class="p-7 relative">
                         <div class="flex justify-between">
                             <h3 id="hs-form-tambah-user-modal-label" class="font-bold text-gray-800 dark:text-white">
                             Update petugas
@@ -296,6 +299,14 @@
                             Update petugas
                             </button>
                         </div>
+                        <!-- Loading Overlay -->
+                        <div id="loading-overlay_edit_user" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/80 rounded-xl dark:bg-neutral-800/80">
+                            <div class="flex flex-col items-center gap-y-3">
+                                <svg class="shrink-0 size-8 text-amber-600 animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                                <p class="text-sm font-medium text-gray-700 dark:text-neutral-300">Memproses data...</p>
+                            </div>
+                        </div>
+                        <!-- End Loading Overlay -->
                     </div>
                 </div>
             </div>
@@ -311,6 +322,9 @@
 function input(){
     const button = document.getElementById('btn-send')
     const label = document.getElementById('error')
+    const loadingOverlay = document.getElementById('loading-overlay_edit_user')
+    const formModal = document.querySelector('#hs-form-update-user-modal .p-7')
+    const allInputs = formModal.querySelectorAll('input, button')
     var name = document.getElementById('name')
     var username = document.getElementById('username')
     var role = document.querySelector('input[name="role"]:checked') ?? ''
@@ -321,9 +335,8 @@ function input(){
     var role_label = document.getElementById('role_label')
     var notelp_label = document.getElementById('notelp_label')
 
-    button.disabled = true
-    button.textContent = "Loading..."
     label.textContent = ''
+    loadingOverlay.classList.remove('hidden')
 
     fetch("{{ route('daftar.user.update', $user['id_user']) }}", {
         method: 'PUT',
@@ -354,6 +367,8 @@ function input(){
         });
 
         if (data.status === false) {
+            loadingOverlay.classList.add('hidden')
+            allInputs.forEach(el => { if (el !== button) el.disabled = false })
             if (data.errors && typeof data.errors === 'object') {
                 if(data.errors.name){
                     name.classList.replace('border-gray-200','border-red-500')
@@ -379,20 +394,59 @@ function input(){
                 }
             }
         } else {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            document.getElementById('btn-close').click()
-            location.reload();
+            flashAndReload(data.message || 'Petugas berhasil diperbarui');
         }
 
-        button.disabled = false;
-        button.textContent = "Update petugas";
         label.textContent = data.error || '';
     })
     .catch(error => {
         console.error('Error:', error);
-        button.disabled = false;
-        button.textContent = "Update petugas";
+        loadingOverlay.classList.add('hidden')
+        allInputs.forEach(el => { if (el !== button) el.disabled = false })
         label.textContent = error.message || 'Terjadi kesalahan koneksi.';
+    });
+}
+
+function deleteUser() {
+    const button = document.getElementById('btn-delete-user');
+    const loadingOverlay = document.getElementById('loading-overlay_delete_user');
+    const modal = document.getElementById('hs-scale-confirm-modal');
+    const allButtons = modal.querySelectorAll('button');
+
+    button.disabled = true;
+    button.textContent = "Loading...";
+    allButtons.forEach(el => { if (el !== button) el.disabled = true });
+    loadingOverlay.classList.remove('hidden');
+
+    fetch("{{ route('daftar.user.delete') }}", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            id: '{{ $user['id_user'] }}'
+        })
+    })
+    .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Gagal menghapus data');
+        if (data.status === false) {
+            loadingOverlay.classList.add('hidden');
+            button.disabled = false;
+            button.textContent = "Hapus";
+            allButtons.forEach(el => { if (el !== button) el.disabled = false });
+            return;
+        }
+        flashAndReload(data.message || 'Petugas berhasil dihapus');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        loadingOverlay.classList.add('hidden');
+        button.disabled = false;
+        button.textContent = "Hapus";
+        allButtons.forEach(el => { if (el !== button) el.disabled = false });
     });
 }
 </script>

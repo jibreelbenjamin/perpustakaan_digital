@@ -160,10 +160,10 @@
 
         @if ($akses_token['status'] == 'aktif')            
         <!-- Confirm Modal -->
-        <div id="hs-scale-confirm-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-scale-confirm-modal-label">
+        <div id="hs-scale-confirm-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none [--overlay-backdrop:static]" role="dialog" tabindex="-1" aria-labelledby="hs-scale-confirm-modal-label">
             <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
                 <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                    <div class="p-7">
+                    <div class="p-7 relative">
                         <div class="flex justify-between items-center  ">
                             <h3 id="hs-scale-confirm-modal-label" class="font-bold text-gray-800 dark:text-white">
                             Cabut akses token?
@@ -178,15 +178,18 @@
                             <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#hs-scale-confirm-modal">
                             Kembali
                             </button>
-                            <form method="post" action="{{ route('daftar.akses_token.revoke') }}">
-                                @csrf
-                                @method('PATCH')
-                                <input type="hidden" name="id" value="{{ $akses_token['token_id'] }}">
-                                <button class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 focus:outline-hidden focus:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
-                                Cabut
-                                </button>
-                            </form>
+                            <button id="btn-revoke-token" onclick="revokeToken()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 focus:outline-hidden focus:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
+                            Cabut
+                            </button>
                         </div>
+                        <!-- Loading Overlay -->
+                        <div id="loading-overlay_revoke_token" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/80 rounded-xl dark:bg-neutral-800/80">
+                            <div class="flex flex-col items-center gap-y-3">
+                                <svg class="shrink-0 size-8 text-red-600 animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                                <p class="text-sm font-medium text-gray-700 dark:text-neutral-300">Memproses data...</p>
+                            </div>
+                        </div>
+                        <!-- End Loading Overlay -->
                     </div>
                 </div>
             </div>
@@ -196,3 +199,50 @@
       @endif
     </div>
 </x-app>
+
+@if (!empty($akses_token) && $akses_token['status'] == 'aktif')
+<script>
+function revokeToken() {
+    const button = document.getElementById('btn-revoke-token');
+    const loadingOverlay = document.getElementById('loading-overlay_revoke_token');
+    const modal = document.getElementById('hs-scale-confirm-modal');
+    const allButtons = modal.querySelectorAll('button');
+
+    button.disabled = true;
+    button.textContent = "Loading...";
+    allButtons.forEach(el => { if (el !== button) el.disabled = true });
+    loadingOverlay.classList.remove('hidden');
+
+    fetch("{{ route('daftar.akses_token.revoke') }}", {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            id: '{{ $akses_token['token_id'] }}'
+        })
+    })
+    .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Gagal memproses data');
+        if (data.status === false) {
+            loadingOverlay.classList.add('hidden');
+            button.disabled = false;
+            button.textContent = "Cabut";
+            allButtons.forEach(el => { if (el !== button) el.disabled = false });
+            return;
+        }
+        flashAndReload(data.message || 'Token berhasil dicabut');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        loadingOverlay.classList.add('hidden');
+        button.disabled = false;
+        button.textContent = "Cabut";
+        allButtons.forEach(el => { if (el !== button) el.disabled = false });
+    });
+}
+</script>
+@endif

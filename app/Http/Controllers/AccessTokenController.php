@@ -100,13 +100,25 @@ class AccessTokenController
             $body = json_decode($response->getBody(), true);
 
             if (isset($body['status']) && $body['status'] === false) {
+                if ($request->expectsJson()) {
+                    return response()->json(['status' => false, 'message' => 'Data akses token tidak ditemukan']);
+                }
                 return back()->withErrors(['message' => 'Data akses token tidak ditemukan']);
             }
 
+            if ($request->expectsJson()) {
+                return response()->json(['status' => true, 'message' => 'Data akses token telah dicabut']);
+            }
             return back()->with('successToast', 'Data akses token telah dicabut');
         } catch (ClientException $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['status' => false, 'message' => 'Gagal memuat data: ' . $e->getMessage()]);
+            }
             return back()->withErrors(['message' => 'Gagal memuat data: ' . $e->getMessage()]);
         } catch (\Exception $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['status' => false, 'message' => 'Terjadi kesalahan:' . $e->getMessage()]);
+            }
             return back()->withErrors(['message' => 'Terjadi kesalahan:' . $e->getMessage()]);
         }
     }

@@ -74,40 +74,24 @@
           <div class="flex flex-wrap gap-3">
               @if ($pinjaman['status'] == 'dipinjam')                
               <!-- Button -->
-              <form action="{{ route('daftar.pinjaman.patch', $pinjaman['id_borrowing']) }}" method="post">
-                  @csrf
-                  <input type="hidden" name="status" value="dikembalikan">
-                  <button class="py-1.5 px-2.5 sm:py-2 sm:px-3 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-xl border border-gray-200 bg-white text-emerald-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-emerald-500 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
+              <button type="button" onclick="showConfirmModal('dikembalikan')" class="py-1.5 px-2.5 sm:py-2 sm:px-3 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-xl border border-gray-200 bg-white text-emerald-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-emerald-500 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
                     Tandai dikembalikan
                   </button>
-              </form>
-              <form action="{{ route('daftar.pinjaman.patch', $pinjaman['id_borrowing']) }}" method="post">
-                  @csrf
-                  <input type="hidden" name="status" value="hilang">
-                  <button class="py-1.5 px-2.5 sm:py-2 sm:px-3 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-xl border border-gray-200 bg-white text-red-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-red-500 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
+              <button type="button" onclick="showConfirmModal('hilang')" class="py-1.5 px-2.5 sm:py-2 sm:px-3 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-xl border border-gray-200 bg-white text-red-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-red-500 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
                     Tandai hilang
                   </button>
-              </form>
               <!-- End Button -->
               @elseif ($pinjaman['status'] == 'dikembalikan')                
               <!-- Button -->
-              <form action="{{ route('daftar.pinjaman.patch', $pinjaman['id_borrowing']) }}" method="post">
-                  @csrf
-                  <input type="hidden" name="status" value="hilang">
-                  <button class="py-1.5 px-2.5 sm:py-2 sm:px-3 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-xl border border-gray-200 bg-white text-red-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-red-500 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
+              <button type="button" onclick="showConfirmModal('hilang')" class="py-1.5 px-2.5 sm:py-2 sm:px-3 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-xl border border-gray-200 bg-white text-red-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-red-500 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
                     Tandai hilang
                   </button>
-              </form>
               <!-- End Button -->
               @elseif ($pinjaman['status'] == 'hilang')                
               <!-- Button -->
-              <form action="{{ route('daftar.pinjaman.patch', $pinjaman['id_borrowing']) }}" method="post">
-                  @csrf
-                  <input type="hidden" name="status" value="dikembalikan">
-                  <button class="py-1.5 px-2.5 sm:py-2 sm:px-3 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-xl border border-gray-200 bg-white text-emerald-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-emerald-500 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
+              <button type="button" onclick="showConfirmModal('dikembalikan')" class="py-1.5 px-2.5 sm:py-2 sm:px-3 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-xl border border-gray-200 bg-white text-emerald-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-emerald-500 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
                     Tandai dikembalikan
                   </button>
-              </form>
               <!-- End Button -->
               @endif
           </div>
@@ -631,10 +615,10 @@
         <!-- End Footer -->
 
         <!-- Confirm Modal -->
-        <div id="hs-scale-confirm-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-scale-confirm-modal-label">
+        <div id="hs-scale-confirm-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none [--overlay-backdrop:static]" role="dialog" tabindex="-1" aria-labelledby="hs-scale-confirm-modal-label">
             <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
                 <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                    <div class="p-7">
+                    <div class="p-7 relative">
                         <div class="flex justify-between items-center  ">
                             <h3 id="hs-scale-confirm-modal-label" class="font-bold text-gray-800 dark:text-white">
                             Hapus data pinjaman?
@@ -649,26 +633,66 @@
                             <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#hs-scale-confirm-modal">
                             Kembali
                             </button>
-                            <form method="post" action="{{ route('daftar.pinjaman.delete') }}">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="id" value="{{ $pinjaman['id_borrowing'] }}">
-                                <button class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 focus:outline-hidden focus:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
-                                Hapus
-                                </button>
-                            </form>
+                            <button id="btn-delete-pinjaman" onclick="deletePinjaman()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 focus:outline-hidden focus:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
+                            Hapus
+                            </button>
                         </div>
+                        <!-- Loading Overlay -->
+                        <div id="loading-overlay_delete_pinjaman" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/80 rounded-xl dark:bg-neutral-800/80">
+                            <div class="flex flex-col items-center gap-y-3">
+                                <svg class="shrink-0 size-8 text-red-600 animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                                <p class="text-sm font-medium text-gray-700 dark:text-neutral-300">Menghapus data...</p>
+                            </div>
+                        </div>
+                        <!-- End Loading Overlay -->
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Confirm Modal -->
-    
-        <!-- Form Update Pinjaman Modal -->
-        <div id="hs-form-update-pnjmn-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-form-update-pnjmn-modal-label">
+
+        <!-- Confirm Status Modal -->
+        <div id="hs-confirm-status-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none [--overlay-backdrop:static]" role="dialog" tabindex="-1" aria-labelledby="hs-confirm-status-modal-label">
             <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
                 <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                    <div class="p-7">
+                    <div class="p-7 relative">
+                        <div class="flex justify-between items-center">
+                            <h3 id="hs-confirm-status-modal-label" class="font-bold text-gray-800 dark:text-white">
+                            Konfirmasi status pinjaman
+                            </h3>
+                        </div>
+                        <div class="pb-3 overflow-y-auto">
+                            <p class="mt-1 text-gray-800 dark:text-neutral-400">
+                            Yakin ingin menandai pinjaman buku <b>#{{ $pinjaman['id_borrowing'] }}</b> sebagai <b id="status-label-text"></b>?
+                            </p>
+                        </div>
+                        <div class="flex justify-end items-center gap-x-2">
+                            <button id="btn-close-status" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#hs-confirm-status-modal">
+                            Batal
+                            </button>
+                            <button id="btn-confirm-status" onclick="confirmStatus()" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-amber-600 text-white hover:bg-amber-700 focus:outline-hidden focus:bg-amber-700 disabled:opacity-50 disabled:pointer-events-none">
+                            Ya, lanjutkan
+                            </button>
+                        </div>
+                        <!-- Loading Overlay -->
+                        <div id="loading-overlay_status" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/80 rounded-xl dark:bg-neutral-800/80">
+                            <div class="flex flex-col items-center gap-y-3">
+                                <svg class="shrink-0 size-8 text-amber-600 animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                                <p class="text-sm font-medium text-gray-700 dark:text-neutral-300">Memproses data...</p>
+                            </div>
+                        </div>
+                        <!-- End Loading Overlay -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Confirm Status Modal -->
+    
+        <!-- Form Update Pinjaman Modal -->
+        <div id="hs-form-update-pnjmn-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none [--overlay-backdrop:static]" role="dialog" tabindex="-1" aria-labelledby="hs-form-update-pnjmn-modal-label">
+            <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
+                <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                    <div class="p-7 relative">
                         <div class="flex justify-between">
                             <h3 id="hs-form-update-pnjmn-modal-label" class="font-bold text-gray-800 dark:text-white">
                             Update data pinjaman buku
@@ -829,8 +853,15 @@
                           <svg class="shrink-0 size-3 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
                           Memperbarui informasi pinjaman ini akan mengganti tanggung jawab petugas kepada anda.
                         </p>
+                        <!-- Loading Overlay -->
+                        <div id="loading-overlay_edit" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/80 rounded-xl dark:bg-neutral-800/80">
+                            <div class="flex flex-col items-center gap-y-3">
+                                <svg class="shrink-0 size-8 text-amber-600 animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                                <p class="text-sm font-medium text-gray-700 dark:text-neutral-300">Memproses data...</p>
+                            </div>
+                        </div>
+                        <!-- End Loading Overlay -->
                     </div>
-                </div>
             </div>
         </div>
         <!-- End Form Update Pinjaman Modal -->
@@ -843,6 +874,9 @@
 function input(){
     const button = document.getElementById('btn-send')
     const label = document.getElementById('error')
+    const loadingOverlay = document.getElementById('loading-overlay_edit')
+    const formModal = document.querySelector('#hs-form-update-pnjmn-modal .p-7')
+    const allInputs = formModal.querySelectorAll('input, select, button, [data-hs-select]')
     var name = document.getElementById('name')
     var contact = document.getElementById('contact')
     var id_book = document.getElementById('id_book')
@@ -858,9 +892,8 @@ function input(){
     var return_date_label = document.getElementById('return_date_label')
     var status_label = document.getElementById('status_label')
 
-    button.disabled = true
-    button.textContent = "Loading..."
     label.textContent = ''
+    loadingOverlay.classList.remove('hidden')
 
     fetch("{{ route('daftar.pinjaman.update', $pinjaman['id_borrowing']) }}", {
         method: 'PUT',
@@ -893,6 +926,8 @@ function input(){
         });
 
         if (data.status === false) {
+            loadingOverlay.classList.add('hidden')
+            allInputs.forEach(el => { if (el !== button) el.disabled = false })
             if (data.errors && typeof data.errors === 'object') {
                 if(data.errors.name){
                     name.classList.replace('border-gray-200','border-red-500')
@@ -930,22 +965,121 @@ function input(){
                 }
             }
         } else {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            document.getElementById('btn-close').click()
-            location.reload();
+            flashAndReload(data.message || 'Data pinjaman berhasil diperbarui');
         }
 
-        button.disabled = false;
-        button.textContent = "Update pinjaman";
         if(data.errors){
             label.textContent = data.message
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        button.disabled = false;
-        button.textContent = "Update pinjaman";
+        loadingOverlay.classList.add('hidden')
+        allInputs.forEach(el => { if (el !== button) el.disabled = false })
         label.textContent = error.message || 'Terjadi kesalahan koneksi.';
+    });
+}
+
+let pendingStatus = '';
+
+function showConfirmModal(status) {
+    pendingStatus = status;
+    const labelMap = {
+        'dikembalikan': 'dikembalikan',
+        'hilang': 'hilang'
+    };
+    document.getElementById('status-label-text').textContent = labelMap[status] || status;
+    HSOverlay.open('#hs-confirm-status-modal');
+}
+
+function confirmStatus() {
+    const button = document.getElementById('btn-confirm-status');
+    const btnClose = document.getElementById('btn-close-status');
+    const loadingOverlay = document.getElementById('loading-overlay_status');
+    const modal = document.getElementById('hs-confirm-status-modal');
+    const allInputs = modal.querySelectorAll('button');
+
+    button.disabled = true;
+    button.textContent = "Loading...";
+    btnClose.disabled = true;
+    loadingOverlay.classList.remove('hidden');
+
+    fetch("{{ route('daftar.pinjaman.patch', $pinjaman['id_borrowing']) }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            status: pendingStatus
+        })
+    })
+    .then(async (response) => {
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Gagal mengirim data ke server');
+        }
+
+        if (data.status === false) {
+            loadingOverlay.classList.add('hidden');
+            button.disabled = false;
+            button.textContent = "Ya, lanjutkan";
+            btnClose.disabled = false;
+        } else {
+            flashAndReload(data.message || 'Status pinjaman berhasil diubah');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        loadingOverlay.classList.add('hidden');
+        button.disabled = false;
+        button.textContent = "Ya, lanjutkan";
+        btnClose.disabled = false;
+    });
+}
+
+function deletePinjaman() {
+    const button = document.getElementById('btn-delete-pinjaman');
+    const loadingOverlay = document.getElementById('loading-overlay_delete_pinjaman');
+    const modal = document.getElementById('hs-scale-confirm-modal');
+    const allButtons = modal.querySelectorAll('button');
+
+    button.disabled = true;
+    button.textContent = "Loading...";
+    allButtons.forEach(el => { if (el !== button) el.disabled = true });
+    loadingOverlay.classList.remove('hidden');
+
+    fetch("{{ route('daftar.pinjaman.delete') }}", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            id: '{{ $pinjaman['id_borrowing'] }}'
+        })
+    })
+    .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Gagal menghapus data');
+        if (data.status === false) {
+            loadingOverlay.classList.add('hidden');
+            button.disabled = false;
+            button.textContent = "Hapus";
+            allButtons.forEach(el => { if (el !== button) el.disabled = false });
+            return;
+        }
+        flashAndReload(data.message || 'Data pinjaman berhasil dihapus');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        loadingOverlay.classList.add('hidden');
+        button.disabled = false;
+        button.textContent = "Hapus";
+        allButtons.forEach(el => { if (el !== button) el.disabled = false });
     });
 }
 </script>

@@ -139,10 +139,10 @@
     </div>
 
     <!-- Form Tambah Buku Modal -->
-    <div id="hs-form-tambah-buku-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-form-tambah-buku-modal-label">
+    <div id="hs-form-tambah-buku-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none [--overlay-backdrop:static]" role="dialog" tabindex="-1" aria-labelledby="hs-form-tambah-buku-modal-label">
         <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
             <div class="w-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                <div class="p-7">
+                <div class="p-7 relative">
                     <div class="flex justify-between">
                         <h3 id="hs-form-tambah-buku-modal-label" class="font-bold text-gray-800 dark:text-white">
                         Tambah data buku
@@ -252,6 +252,14 @@
                         Tambah buku
                         </button>
                     </div>
+                    <!-- Loading Overlay -->
+                    <div id="loading-overlay_add_buku" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/80 rounded-xl dark:bg-neutral-800/80">
+                        <div class="flex flex-col items-center gap-y-3">
+                            <svg class="shrink-0 size-8 text-amber-600 animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                            <p class="text-sm font-medium text-gray-700 dark:text-neutral-300">Memproses data...</p>
+                        </div>
+                    </div>
+                    <!-- End Loading Overlay -->
                 </div>
             </div>
         </div>
@@ -261,7 +269,7 @@
 
 <script>
 let offset = 0;
-const limit = 15;
+const limit = 100;
 let isLoading = false;
 let allDataLoaded = false;
 let searchQuery = '';
@@ -367,6 +375,9 @@ document.getElementById('search-input').addEventListener('input', (e) => {
 function input(){
     const button = document.getElementById('btn-send')
     const label = document.getElementById('error')
+    const loadingOverlay = document.getElementById('loading-overlay_add_buku')
+    const formModal = document.querySelector('#hs-form-tambah-buku-modal .p-7')
+    const allInputs = formModal.querySelectorAll('input, select, button, [data-hs-select]')
     var title = document.getElementById('title')
     var id_category = document.getElementById('id_category')
     var category = document.getElementById('category')
@@ -380,9 +391,8 @@ function input(){
     var publisher_label = document.getElementById('publisher_label')
     var year_label = document.getElementById('year_label')
 
-    button.disabled = true
-    button.textContent = "Loading..."
     label.textContent = ''
+    loadingOverlay.classList.remove('hidden')
 
     fetch("{{ route('daftar.buku.add') }}", {
         method: 'POST',
@@ -414,6 +424,8 @@ function input(){
         });
 
         if (data.status === false) {
+            loadingOverlay.classList.add('hidden')
+            allInputs.forEach(el => { if (el !== button) el.disabled = false })
             if (data.errors && typeof data.errors === 'object') {
                 if(data.errors.title){
                     title.classList.replace('border-gray-200','border-red-500')
@@ -447,21 +459,17 @@ function input(){
                 }
             }
         } else {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            document.getElementById('btn-close').click()
-            location.reload();
+            flashAndReload(data.message || 'Buku berhasil ditambahkan');
         }
 
-        button.disabled = false;
-        button.textContent = "Tambah buku";
         if(data.errors){
             label.textContent = data.message
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        button.disabled = false;
-        button.textContent = "Tambah buku";
+        loadingOverlay.classList.add('hidden')
+        allInputs.forEach(el => { if (el !== button) el.disabled = false })
         label.textContent = error.message || 'Terjadi kesalahan koneksi.';
     });
 }

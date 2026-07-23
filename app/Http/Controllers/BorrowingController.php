@@ -245,13 +245,25 @@ class BorrowingController
             $body = json_decode($response->getBody(), true);
 
             if (isset($body['status']) && $body['status'] === false) {
+                if ($request->expectsJson()) {
+                    return response()->json(['status' => false, 'message' => 'Data pinjaman tidak ditemukan']);
+                }
                 return back()->withErrors(['message' => 'Data pinjaman tidak ditemukan']);
             }
 
+            if ($request->expectsJson()) {
+                return response()->json(['status' => true, 'message' => 'Data pinjaman telah ditandai']);
+            }
             return back()->with('successToast', 'Data pinjaman telah ditandai');
         } catch (ClientException $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['status' => false, 'message' => 'Gagal memuat data: ' . $e->getMessage()]);
+            }
             return back()->withErrors(['message' => 'Gagal memuat data: ' . $e->getMessage()]);
         } catch (\Exception $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['status' => false, 'message' => 'Terjadi kesalahan:' . $e->getMessage()]);
+            }
             return back()->withErrors(['message' => 'Terjadi kesalahan:' . $e->getMessage()]);
         }
     }
@@ -273,18 +285,33 @@ class BorrowingController
             $pinjaman = data_get(json_decode($responses['borrow']->getBody(), true), 'data', null);
 
             if (!$pinjaman) {
+                if ($request->expectsJson()) {
+                    return response()->json(['status' => false, 'message' => 'Data pinjaman tidak ditemukan']);
+                }
                 return back()->withErrors(['message' => 'Data pinjaman tidak ditemukan']);
             }
             
             if($client->request('DELETE', $urlBorrow, ['headers' => $headers])){
+                if ($request->expectsJson()) {
+                    return response()->json(['status' => true, 'message' => 'Data berhasil dihapus']);
+                }
                 return redirect()->route('daftar.pinjaman')->with('successToast', 'Data berhasil dihapus');
             } else {
+                if ($request->expectsJson()) {
+                    return response()->json(['status' => false, 'message' => 'Terjadi kesalahan saat menghapus']);
+                }
                 return back()->withErrors(['message' => 'Terjadi kesalahan saat menghapus']);
             }
 
         } catch (ClientException $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['status' => false, 'message' => 'Gagal memuat data: ' . $e->getMessage()]);
+            }
             return back()->withErrors(['message' => 'Gagal memuat data: ' . $e->getMessage()]);
         } catch (\Exception $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['status' => false, 'message' => 'Terjadi kesalahan:' . $e->getMessage()]);
+            }
             return back()->withErrors(['message' => 'Terjadi kesalahan:' . $e->getMessage()]);
         }
     }

@@ -226,18 +226,33 @@ class BookController
             $pinjaman = data_get(json_decode($responses['book']->getBody(), true), 'data', null);
 
             if (!$pinjaman) {
+                if ($request->expectsJson()) {
+                    return response()->json(['status' => false, 'message' => 'Buku tidak ditemukan']);
+                }
                 return back()->withErrors(['message' => 'Buku tidak ditemukan']);
             }
             
             if($client->request('DELETE', $urlBook, ['headers' => $headers])){
+                if ($request->expectsJson()) {
+                    return response()->json(['status' => true, 'message' => 'Buku berhasil dihapus']);
+                }
                 return redirect()->route('daftar.buku')->with('successToast', 'Buku berhasil dihapus');
             } else {
+                if ($request->expectsJson()) {
+                    return response()->json(['status' => false, 'message' => 'Terjadi kesalahan saat menghapus']);
+                }
                 return back()->withErrors(['message' => 'Terjadi kesalahan saat menghapus']);
             }
 
         } catch (ClientException $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['status' => false, 'message' => 'Gagal memuat data: ' . $e->getMessage()]);
+            }
             return back()->withErrors(['message' => 'Gagal memuat data: ' . $e->getMessage()]);
         } catch (\Exception $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['status' => false, 'message' => 'Terjadi kesalahan:' . $e->getMessage()]);
+            }
             return back()->withErrors(['message' => 'Terjadi kesalahan:' . $e->getMessage()]);
         }
     }

@@ -139,7 +139,7 @@
 
 <script>
 let offset = 0;
-const limit = 15;
+const limit = 100;
 const params = new URLSearchParams(window.location.search);
 const filterParam = params.get('filter');
 let isLoading = false;
